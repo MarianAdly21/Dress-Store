@@ -1,3 +1,4 @@
+import 'package:dress_store/features/Home/screens/home_screen.dart';
 import 'package:dress_store/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -10,9 +11,9 @@ class DressStore extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home:HomeScreen(),
     );
   }
 }
