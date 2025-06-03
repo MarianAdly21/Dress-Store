@@ -1,4 +1,5 @@
 import 'package:dress_store/features/Home/widgets/category_list.dart';
+import 'package:dress_store/features/Home/widgets/items_grid.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -8,7 +9,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(children: [
-        Positioned.fill(
+        const Positioned.fill(
           child: DecoratedBox(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -21,7 +22,7 @@ class HomeScreen extends StatelessWidget {
         ),
         SafeArea(
             child: Padding(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -47,46 +48,44 @@ class HomeScreen extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 23),
-                child: Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 10),
-                        child: Text(
-                          "Find Your Prefect Dress",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                          ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 10),
+                      child: Text(
+                        "Find Your Prefect Dress",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          contentPadding:
-                              const EdgeInsets.symmetric(vertical: 16),
-                          filled: true,
-                          fillColor: Colors.white,
-                          prefixIcon: const Icon(
-                            Icons.search,
-                            color: Color(0xffA7A3A3),
-                          ),
-                          hintText: "Search",
-                          hintStyle: const TextStyle(
-                            color: Color(0xffA7A3A3),
-                            fontSize: 16,
-                          ),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        contentPadding:
+                            const EdgeInsets.symmetric(vertical: 16),
+                        filled: true,
+                        fillColor: Colors.white,
+                        prefixIcon: const Icon(
+                          Icons.search,
+                          color: Color(0xffA7A3A3),
+                        ),
+                        hintText: "Search",
+                        hintStyle: const TextStyle(
+                          color: Color(0xffA7A3A3),
+                          fontSize: 16,
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(20),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-              Expanded(
+              const Expanded(
                   child: CustomScrollView(
                 slivers: [
                   SliverToBoxAdapter(
@@ -95,13 +94,19 @@ class HomeScreen extends StatelessWidget {
                             fontSize: 18, fontWeight: FontWeight.bold)),
                   ),
                   SliverToBoxAdapter(
-                    child: const SizedBox(
+                    child: SizedBox(
                       height: 6,
                     ),
                   ),
                   SliverToBoxAdapter(
                     child: CategoryList(),
-                  )
+                  ),
+                  SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 20,
+                    ),
+                  ),
+                  ItemsGrid()
                 ],
               )),
             ],
