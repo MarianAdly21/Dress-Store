@@ -1,3 +1,4 @@
+import 'package:dress_store/features/Home/widgets/category_list.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -6,23 +7,23 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xffF8A3A7),
-              Color(0xffFCFCFC),
-            ],
+      body: Stack(children: [
+        Positioned.fill(
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Color(0xffF8A3A7), Color(0xffFCFCFC)],
+              ),
+            ),
           ),
         ),
-        child: SafeArea(
+        SafeArea(
             child: Padding(
           padding: const EdgeInsets.all(10),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -44,7 +45,6 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-             
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 23),
                 child: Container(
@@ -85,11 +85,29 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-              )
+              ),
+              Expanded(
+                  child: CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: Text("Category",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
+                  ),
+                  SliverToBoxAdapter(
+                    child: const SizedBox(
+                      height: 6,
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: CategoryList(),
+                  )
+                ],
+              )),
             ],
           ),
-        )),
-      ),
+        ))
+      ]),
     );
   }
 }
