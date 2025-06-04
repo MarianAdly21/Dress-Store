@@ -18,7 +18,7 @@ class CategoryList extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemCount: categories.length,
           itemBuilder: (context, index) {
-            return _categoryCustomWidget(
+            return _CategoryCustomWidget(
               categoryModel: categories[index],
             );
           }),
@@ -26,8 +26,8 @@ class CategoryList extends StatelessWidget {
   }
 }
 
-class _categoryCustomWidget extends StatelessWidget {
-  const _categoryCustomWidget({
+class _CategoryCustomWidget extends StatelessWidget {
+  const _CategoryCustomWidget({
     super.key,
     required this.categoryModel,
   });
@@ -38,7 +38,7 @@ class _categoryCustomWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {},
       child: Container(
-        margin:const EdgeInsets.only(right: 10),
+        margin: const EdgeInsets.only(right: 10),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12), color: Color(0xffFD8186)),
         child: Center(
@@ -46,7 +46,10 @@ class _categoryCustomWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           child: Text(
             categoryModel.categoryName,
-            style:const TextStyle(fontSize: 16),
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         )),
       ),

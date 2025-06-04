@@ -58,17 +58,34 @@ class _ItemCutomWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          height: 220,
-          width: 190,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            image: DecorationImage(
-              image: AssetImage(itemModel.image),
-              fit: BoxFit.fill,
+        Stack(alignment: Alignment.topRight, children: [
+          Container(
+            height: 220,
+            width: 190,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              image: DecorationImage(
+                image: AssetImage(itemModel.image),
+                fit: BoxFit.fill,
+              ),
             ),
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: CircleAvatar(
+              radius: 16,
+              backgroundColor: Colors.white,
+              child: IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.favorite_border_outlined,
+                  size: 19,
+                  color: Color(0xffFF9A9F),
+                ),
+              ),
+            ),
+          )
+        ]),
         const SizedBox(
           height: 6,
         ),
