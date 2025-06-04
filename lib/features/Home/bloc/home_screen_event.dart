@@ -2,6 +2,7 @@ part of 'home_screen_bloc.dart';
 
 @immutable
 sealed class HomeScreenEvent {}
+class OpenHomeScreenEvent extends HomeScreenEvent{}
 class OpenCategoryScreenEvent extends HomeScreenEvent {}
 class OPenProductScreenEvent extends HomeScreenEvent {}
 class OpenSearchScreenEvent extends HomeScreenEvent {}

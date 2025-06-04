@@ -4,32 +4,33 @@ import 'package:flutter/material.dart';
 class ItemsGrid extends StatelessWidget {
   const ItemsGrid({super.key});
   final List<ItemModel> items = const [
-    ItemModel(
-        image: "assets/images/item1.webp",
-        name: "Kendry Gdsxvx",
-        price: 2.1333,
-        ),
-    ItemModel(
-        image: "assets/images/item2.webp",
-        name: "Kendry Gdsxvx",
-        price: 2.1333),
-    ItemModel(
-        image: "assets/images/item3.webp",
-        name: "Kendry Gdsxvx",
-        price: 2.1333),
-    ItemModel(
-        image: "assets/images/item4.webp",
-        name: "Kendry Gdsxvx",
-        price: 2.1333),
-    ItemModel(
-        image: "assets/images/item5.webp",
-        name: "Kendry Gdsxvx",
-        price: 2.1333),
-    ItemModel(
-        image: "assets/images/item1.webp",
-        name: "Kendry Gdsxvx",
-        price: 2.1333),
+    // ItemModel(
+    //     image: "assets/images/item1.webp",
+    //     name: "Kendry Gdsxvx",
+    //     price: 2.1333,
+    //     ),
+    // ItemModel(
+    //     image: "assets/images/item2.webp",
+    //     name: "Kendry Gdsxvx",
+    //     price: 2.1333),
+    // ItemModel(
+    //     image: "assets/images/item3.webp",
+    //     name: "Kendry Gdsxvx",
+    //     price: 2.1333),
+    // ItemModel(
+    //     image: "assets/images/item4.webp",
+    //     name: "Kendry Gdsxvx",
+    //     price: 2.1333),
+    // ItemModel(
+    //     image: "assets/images/item5.webp",
+    //     name: "Kendry Gdsxvx",
+    //     price: 2.1333),
+    // ItemModel(
+    //     image: "assets/images/item1.webp",
+    //     name: "Kendry Gdsxvx",
+    //     price: 2.1333),
   ];
+
   @override
   Widget build(BuildContext context) {
     return SliverGrid.builder(
