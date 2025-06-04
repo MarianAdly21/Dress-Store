@@ -25,4 +25,8 @@ class OpenCartScreenState extends HomeScreenState {}
 
 class OpenProfileScreenState extends HomeScreenState {}
 
-class ConvertToFavoriteState extends HomeScreenState {}
+class ConvertItemToFavoriteState extends HomeScreenState {
+  final bool isFavorte;
+
+  ConvertItemToFavoriteState({required this.isFavorte});
+}

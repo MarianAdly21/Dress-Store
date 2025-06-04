@@ -1,4 +1,5 @@
 import 'package:dress_store/features/Home/bloc/home_screen_bloc.dart';
+import 'package:dress_store/features/Home/models/item_model.dart';
 import 'package:dress_store/features/Home/widgets/category_list.dart';
 import 'package:dress_store/features/Home/widgets/products_sliver_grid_list_widget.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,9 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
+bool isFavorite = false;
+late List<ItemModel> items;
+
 class HomeScreenWithBloc extends StatefulWidget {
   const HomeScreenWithBloc({super.key});
 
@@ -32,10 +36,20 @@ class _HomeScreenState extends State<HomeScreenWithBloc> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBody: true,
-      bottomNavigationBar: _bottomNavigationBarWidget(),
-      body: _pageContent(),
+    return BlocListener<HomeScreenBloc, HomeScreenState>(
+      listener: (context, state) {
+        if (state is ConvertItemToFavoriteState) {
+          isFavorite = state.isFavorte;
+        }
+        if (state is LoadedHomeScreenDataSuccessfullyState) {
+          items = state.items;
+        }
+      },
+      child: Scaffold(
+        extendBody: true,
+        bottomNavigationBar: _bottomNavigationBarWidget(),
+        body: _pageContent(),
+      ),
     );
   }
 
@@ -148,7 +162,8 @@ class _HomeScreenState extends State<HomeScreenWithBloc> {
       builder: (context, state) {
         if (state is LoadingState) {
           return const Center(child: CircularProgressIndicator());
-        } else if (state is LoadedHomeScreenDataSuccessfullyState) {
+        } else if (state is LoadedHomeScreenDataSuccessfullyState ||
+            state is ConvertItemToFavoriteState) {
           return Expanded(
               child: CustomScrollView(
             slivers: [
@@ -170,7 +185,13 @@ class _HomeScreenState extends State<HomeScreenWithBloc> {
                   height: 20,
                 ),
               ),
-              ProductsSliverGridListWidget(items: state.items),
+              ProductsSliverGridListWidget(
+                 onFavPressed: (indexOfItem, itemModel) {
+                    currentBloc.add(AddToFavoriteEvent(index: indexOfItem,item: itemModel));
+
+                 },
+                  isFavorite: isFavorite,
+                  items: items),
             ],
           ));
         } else {

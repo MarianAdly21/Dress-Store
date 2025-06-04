@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:dress_store/features/Home/models/item_model.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,8 @@ import 'package:meta/meta.dart';
 part 'home_screen_event.dart';
 part 'home_screen_state.dart';
 
-final List<ItemModel> items = [
-  const ItemModel(
+List<ItemModel> items = [
+  ItemModel(
     image: "assets/images/item1.webp",
     name: "Kendry Gdsxvx",
     price: 2.1333,
@@ -21,7 +22,7 @@ final List<ItemModel> items = [
       Colors.orange,
     ],
   ),
-  const ItemModel(
+  ItemModel(
     image: "assets/images/item2.webp",
     name: "Kendry Gdsxvx",
     price: 2.1333,
@@ -34,7 +35,7 @@ final List<ItemModel> items = [
       Colors.orange,
     ],
   ),
-  const ItemModel(
+  ItemModel(
     image: "assets/images/item3.webp",
     name: "Kendry Gdsxvx",
     price: 2.1333,
@@ -47,7 +48,7 @@ final List<ItemModel> items = [
       Colors.orange,
     ],
   ),
-  const ItemModel(
+  ItemModel(
     image: "assets/images/item4.webp",
     name: "Kendry Gdsxvx",
     price: 2.1333,
@@ -60,7 +61,7 @@ final List<ItemModel> items = [
       Colors.orange,
     ],
   ),
-  const ItemModel(
+  ItemModel(
     image: "assets/images/item5.webp",
     name: "Kendry Gdsxvx",
     price: 2.1333,
@@ -73,7 +74,7 @@ final List<ItemModel> items = [
       Colors.orange,
     ],
   ),
-  const ItemModel(
+  ItemModel(
     image: "assets/images/item1.webp",
     name: "Kendry Gdsxvx",
     price: 2.1333,
@@ -91,6 +92,19 @@ final List<ItemModel> items = [
 class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
   HomeScreenBloc() : super(HomeScreenInitial()) {
     on<OpenHomeScreenEvent>(_loadedHomeScreenData);
+    on<AddToFavoriteEvent>(_convertItemToFavorite);
+  }
+
+  FutureOr<void> _convertItemToFavorite(
+      AddToFavoriteEvent event, Emitter<HomeScreenState> emit) {
+    log("Befor Update ${event.item.isFavorite}");
+    log("Befor Update ${event.index}");
+
+    event.item.isFavorite = !event.item.isFavorite;
+    
+    log("after Update ${event.item.isFavorite}");
+
+    emit(ConvertItemToFavoriteState(isFavorte: event.item.isFavorite));
   }
 
   FutureOr<void> _loadedHomeScreenData(

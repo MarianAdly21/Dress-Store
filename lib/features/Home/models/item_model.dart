@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 class ItemModel {
+   bool isFavorite;
   final String image;
   final String name;
   final double price;
@@ -8,7 +9,8 @@ class ItemModel {
   final List<String> sizes;
   final List<Color> colors;
 
-  const ItemModel({
+   ItemModel({
+    this.isFavorite =false,
     required this.image,
     required this.colors,
     required this.description,

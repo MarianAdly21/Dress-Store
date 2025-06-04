@@ -2,9 +2,14 @@ import 'package:dress_store/features/Home/models/item_model.dart';
 import 'package:flutter/material.dart';
 
 class ProductsSliverGridListWidget extends StatelessWidget {
-  const ProductsSliverGridListWidget({super.key, required this.items});
+  const ProductsSliverGridListWidget(
+      {super.key,
+      required this.items,
+      required this.isFavorite,
+      required this.onFavPressed});
   final List<ItemModel> items;
-
+  final bool isFavorite;
+  final void Function(int indexOfItem, ItemModel itemModel) onFavPressed;
   @override
   Widget build(BuildContext context) {
     return SliverGrid.builder(
@@ -18,6 +23,8 @@ class ProductsSliverGridListWidget extends StatelessWidget {
         itemBuilder: (context, index) {
           return _ItemCutomWidget(
             itemModel: items[index],
+            isFavorite: isFavorite,
+            onFavPressed: () => onFavPressed(index, items[index]),
           );
         });
   }
@@ -27,8 +34,12 @@ class _ItemCutomWidget extends StatelessWidget {
   const _ItemCutomWidget({
     super.key,
     required this.itemModel,
+    required this.isFavorite,
+    required this.onFavPressed,
   });
   final ItemModel itemModel;
+  final bool isFavorite;
+  final void Function() onFavPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -51,14 +62,23 @@ class _ItemCutomWidget extends StatelessWidget {
             child: CircleAvatar(
               radius: 16,
               backgroundColor: Colors.white,
-              child: IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.favorite_border_outlined,
-                  size: 19,
-                  color: Color(0xffFF9A9F),
-                ),
-              ),
+              child: itemModel.isFavorite
+                  ? IconButton(
+                      onPressed: onFavPressed,
+                      icon: const Icon(
+                        Icons.favorite_sharp,
+                        size: 19,
+                        color: Color(0xffFF9A9F),
+                      ),
+                    )
+                  : IconButton(
+                      onPressed: onFavPressed,
+                      icon: const Icon(
+                        Icons.favorite_border_outlined,
+                        size: 19,
+                        color: Color(0xffFF9A9F),
+                      ),
+                    ),
             ),
           )
         ]),
