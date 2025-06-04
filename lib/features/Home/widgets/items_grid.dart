@@ -7,7 +7,8 @@ class ItemsGrid extends StatelessWidget {
     ItemModel(
         image: "assets/images/item1.webp",
         name: "Kendry Gdsxvx",
-        price: 2.1333),
+        price: 2.1333,
+        ),
     ItemModel(
         image: "assets/images/item2.webp",
         name: "Kendry Gdsxvx",
