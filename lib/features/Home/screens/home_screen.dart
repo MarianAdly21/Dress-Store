@@ -8,6 +8,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
+      bottomNavigationBar: const _ButtomNavigationBarWidget(),
       body: Stack(children: [
         const Positioned.fill(
           child: DecoratedBox(
@@ -22,7 +24,7 @@ class HomeScreen extends StatelessWidget {
         ),
         SafeArea(
             child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -106,12 +108,55 @@ class HomeScreen extends StatelessWidget {
                       height: 20,
                     ),
                   ),
-                  ItemsGrid()
+                  ItemsGrid(),
                 ],
               )),
             ],
           ),
         ))
+      ]),
+    );
+  }
+}
+
+class _ButtomNavigationBarWidget extends StatelessWidget {
+  const _ButtomNavigationBarWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(40), topRight: Radius.circular(40)),
+      child: BottomNavigationBar(fixedColor: Color(0xffF8A3A7), items: [
+        BottomNavigationBarItem(
+          label: "",
+          icon: IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.home,
+                size: 40,
+              )),
+        ),
+        BottomNavigationBarItem(
+          label: '',
+          icon: IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.shopping_cart,
+                size: 40,
+              )),
+        ),
+        BottomNavigationBarItem(
+          label: "",
+          icon: IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.person,
+                size: 40,
+              )),
+        )
       ]),
     );
   }
