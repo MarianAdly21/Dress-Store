@@ -3,17 +3,19 @@ part of 'home_screen_bloc.dart';
 @immutable
 sealed class HomeScreenState {}
 
-final class HomeScreenInitial extends HomeScreenState {
-  
-}
+final class HomeScreenInitial extends HomeScreenState {}
 
-class GetHomeScreenDataState extends HomeScreenState {
+class LoadedHomeScreenDataSuccessfullyState extends HomeScreenState {
   final List<ItemModel> items;
 
-  GetHomeScreenDataState({required this.items});
+  LoadedHomeScreenDataSuccessfullyState({required this.items});
 }
 
 class OpenCategoryScreenState extends HomeScreenState {}
+
+class LoadingState extends HomeScreenState {}
+
+class ErrorState extends HomeScreenState {}
 
 class OpenProductScreenState extends HomeScreenState {}
 

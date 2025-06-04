@@ -91,11 +91,12 @@ final List<ItemModel> items = [
 class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
   HomeScreenBloc() : super(HomeScreenInitial()) {
     on<OpenHomeScreenEvent>(_loadedHomeScreenData);
-    
   }
 
   FutureOr<void> _loadedHomeScreenData(
-      OpenHomeScreenEvent event, Emitter<HomeScreenState> emit) {
-    emit(GetHomeScreenDataState(items: items));
+      OpenHomeScreenEvent event, Emitter<HomeScreenState> emit) async {
+    emit(LoadingState());
+    await Future.delayed(const Duration(seconds: 3));
+    emit(LoadedHomeScreenDataSuccessfullyState(items: items));
   }
 }

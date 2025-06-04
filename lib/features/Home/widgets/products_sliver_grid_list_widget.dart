@@ -1,37 +1,9 @@
 import 'package:dress_store/features/Home/models/item_model.dart';
 import 'package:flutter/material.dart';
 
-class ItemsGrid extends StatelessWidget {
-  const ItemsGrid({super.key, required this.items});
+class ProductsSliverGridListWidget extends StatelessWidget {
+  const ProductsSliverGridListWidget({super.key, required this.items});
   final List<ItemModel> items;
-
-  // final List<ItemModel> items = const [
-  //   // ItemModel(
-  //   //     image: "assets/images/item1.webp",
-  //   //     name: "Kendry Gdsxvx",
-  //   //     price: 2.1333,
-  //   //     ),
-  //   // ItemModel(
-  //   //     image: "assets/images/item2.webp",
-  //   //     name: "Kendry Gdsxvx",
-  //   //     price: 2.1333),
-  //   // ItemModel(
-  //   //     image: "assets/images/item3.webp",
-  //   //     name: "Kendry Gdsxvx",
-  //   //     price: 2.1333),
-  //   // ItemModel(
-  //   //     image: "assets/images/item4.webp",
-  //   //     name: "Kendry Gdsxvx",
-  //   //     price: 2.1333),
-  //   // ItemModel(
-  //   //     image: "assets/images/item5.webp",
-  //   //     name: "Kendry Gdsxvx",
-  //   //     price: 2.1333),
-  //   // ItemModel(
-  //   //     image: "assets/images/item1.webp",
-  //   //     name: "Kendry Gdsxvx",
-  //   //     price: 2.1333),
-  // ];
 
   @override
   Widget build(BuildContext context) {
