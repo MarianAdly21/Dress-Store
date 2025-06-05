@@ -35,12 +35,16 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
   }
 
   late ItemModel item;
+  int? choicedSizeId;
   @override
   Widget build(BuildContext context) {
     return BlocListener<ProductScreenBloc, ProductScreenState>(
       listener: (context, state) {
         if (state is LoadedProductSuccessfullyState) {
           item = state.itemModel;
+        }
+        if (state is ChoiceSizeState) {
+          choicedSizeId = state.sizeId;
         }
       },
       child: Scaffold(
@@ -60,89 +64,9 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
         ),
         body: BlocBuilder<ProductScreenBloc, ProductScreenState>(
           builder: (context, state) {
-            if (state is LoadedProductSuccessfullyState) {
-              return Stack(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(item.image),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    child: Container(
-                      margin: const EdgeInsets.only(
-                        bottom: 30,
-                        left: 20,
-                        right: 20,
-                      ),
-                      width: 330,
-                      height: 400,
-                      decoration: BoxDecoration(
-                        color: const Color(0xffF8A3A7).withOpacity(0.9),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 30, horizontal: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      item.name,
-                                      style: const TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 3),
-                                    Text(
-                                      item.price.toString(),
-                                      style: const TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                IconFavoriteButtonCustom(
-                                  itemModel: item,
-                                  onFavPressed: () {},
-                                )
-                              ],
-                            ),
-                            _rowOfSizes(),
-                            _rowOfColors(),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 6),
-                              child: Text(
-                                item.description,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                            const ButtonCustomWidget(),
-                          ],
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              );
+            if (state is LoadedProductSuccessfullyState ||
+                state is ChoiceSizeState) {
+              return _contentOfBody();
             } else if (state is LoadingState) {
               return const Center(
                 child: CircularProgressIndicator(),
@@ -163,6 +87,89 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
 ///////////////////////////////////////////////////////////
 //////////////////// Widget methods ///////////////////////
 ///////////////////////////////////////////////////////////
+  Widget _contentOfBody() {
+    return Stack(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(item.image),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        Positioned(
+          left: 0,
+          right: 0,
+          bottom: 0,
+          child: Container(
+            margin: const EdgeInsets.only(
+              bottom: 30,
+              left: 20,
+              right: 20,
+            ),
+            width: 330,
+            height: 400,
+            decoration: BoxDecoration(
+              color: const Color(0xffF8A3A7).withOpacity(0.9),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            item.name,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(height: 3),
+                          Text(
+                            item.price.toString(),
+                            style: const TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                      IconFavoriteButtonCustom(
+                        itemModel: item,
+                        onFavPressed: () {},
+                      ),
+                    ],
+                  ),
+                  _rowOfSizes(),
+                  _rowOfColors(),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 6),
+                    child: Text(
+                      item.description,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                  const ButtonCustomWidget(),
+                ],
+              ),
+            ),
+          ),
+        )
+      ],
+    );
+  }
 
   Widget _rowOfColors() {
     return Row(
@@ -188,7 +195,13 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
         children: List.generate(
           item.sizes.length,
           (index) => SizeCustomWidget(
-            size: item.sizes[index],
+            onSizeTap: () {
+              currenBolc.add(ChoiceSizeEvent(
+                  idItem: item.id, idSize: item.sizes[index].id));
+            },
+            indexOfitem: index,
+            item: item,
+            sizeChoiced: choicedSizeId,
           ),
         ),
 

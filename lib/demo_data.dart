@@ -10,21 +10,27 @@ class DemoData {
       price: 2.1333,
       description:
           "The dress strapless  Its elegant silhouette is enhanced by a large bow detail, adding a touch of .",
-      sizes: ['XS', 'S', 'M', 'L'],
+      sizes: [SizeModel(size: 'XS', id: 1),SizeModel(size: 'S', id: 2),SizeModel(size:'M' , id: 3) , SizeModel(size: 'L', id: 4),],
       colors: [
         Colors.black,
         
         Colors.orange,
       ],
     ),
-    ItemModel(
+   ItemModel(
       id: 2,
       image: "assets/images/item2.webp",
       name: "Kendry Gdsxvx",
       price: 2.1333,
       description:
           "The dress strapless  Its elegant silhouette is enhanced by a large bow detail, adding a touch of .",
-      sizes: ['XS', 'S', 'M', 'L'],
+           sizes: [
+        SizeModel(size: 'XS', id: 1),
+        SizeModel(size: 'S', id: 2),
+        SizeModel(size: 'M', id: 3),
+        SizeModel(size: 'L', id: 4),
+      ],
+
       colors: [
         Colors.black,
         Colors.white,
@@ -38,7 +44,13 @@ class DemoData {
       price: 2.1333,
       description:
           "The dress strapless  Its elegant silhouette is enhanced by a large bow detail, adding a touch of .",
-      sizes: ['XS', 'S', 'M', 'L'],
+           sizes: [
+        SizeModel(size: 'XS', id: 1),
+        SizeModel(size: 'S', id: 2),
+        SizeModel(size: 'M', id: 3),
+        SizeModel(size: 'L', id: 4),
+      ],
+
       colors: [
         Colors.black,
         Colors.white,
@@ -52,7 +64,13 @@ class DemoData {
       price: 2.1333,
       description:
           "The dress strapless  Its elegant silhouette is enhanced by a large bow detail, adding a touch of .",
-      sizes: ['XS', 'S', 'M', 'L'],
+          sizes: [
+        SizeModel(size: 'XS', id: 1),
+        SizeModel(size: 'S', id: 2),
+        SizeModel(size: 'M', id: 3),
+        SizeModel(size: 'L', id: 4),
+      ],
+
       colors: [
         Colors.black,
         Colors.white,
@@ -66,7 +84,13 @@ class DemoData {
       price: 2.1333,
       description:
           "The dress strapless  Its elegant silhouette is enhanced by a large bow detail, adding a touch of .",
-      sizes: ['XS', 'S', 'M', 'L'],
+           sizes: [
+        SizeModel(size: 'XS', id: 1),
+        SizeModel(size: 'S', id: 2),
+        SizeModel(size: 'M', id: 3),
+        SizeModel(size: 'L', id: 4),
+      ],
+
       colors: [
         Colors.black,
         Colors.white,
@@ -80,7 +104,13 @@ class DemoData {
       price: 2.1333,
       description:
           "The dress strapless  Its elegant silhouette is enhanced by a large bow detail, adding a touch of .",
-      sizes: ['XS', 'S', 'M'],
+          sizes: [
+        SizeModel(size: 'XS', id: 1),
+        SizeModel(size: 'S', id: 2),
+        SizeModel(size: 'M', id: 3),
+        SizeModel(size: 'L', id: 4),
+      ],
+
       colors: [
         Colors.black,
         Colors.white,

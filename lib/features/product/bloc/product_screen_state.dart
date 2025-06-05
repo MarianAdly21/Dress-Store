@@ -21,6 +21,12 @@ class LoadedProductSuccessfullyState extends ProductScreenState {
 
 class ChoiceColorState extends ProductScreenState {}
 
-class ChoiceSizeState extends ProductScreenState {}
+class ChoiceSizeState extends ProductScreenState {
+   final int sizeId;
+
+  ChoiceSizeState({required this.sizeId});
+
+
+}
 
 class AddToCartState extends ProductScreenState {}

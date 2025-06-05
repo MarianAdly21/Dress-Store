@@ -8,9 +8,25 @@ import 'package:meta/meta.dart';
 part 'product_screen_event.dart';
 part 'product_screen_state.dart';
 
+bool isChoice = false;
+
 class ProductScreenBloc extends Bloc<ProductScreenEvent, ProductScreenState> {
   ProductScreenBloc() : super(ProductScreenInitial()) {
     on<LoadedProductEvent>(_loadedproductData);
+    on<ChoiceSizeEvent>(_choiceSize);
+  }
+
+  FutureOr<void> _choiceSize(
+      ChoiceSizeEvent event, Emitter<ProductScreenState> emit) {
+    for (var item in DemoData.items) {
+      if (item.id == event.idItem) {
+        for (var size in item.sizes) {
+          if (size.id == event.idSize) {
+            emit(ChoiceSizeState(sizeId: event.idSize));
+          }
+        }
+      }
+    }
   }
 
   FutureOr<void> _loadedproductData(
