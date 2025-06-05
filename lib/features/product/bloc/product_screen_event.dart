@@ -3,10 +3,10 @@ part of 'product_screen_bloc.dart';
 @immutable
 sealed class ProductScreenEvent {}
 
-class loadedProductEvent extends ProductScreenEvent {
+class LoadedProductEvent extends ProductScreenEvent {
   final int itemId;
 
-  loadedProductEvent({required this.itemId});
+  LoadedProductEvent({required this.itemId});
 }
 
 class ChoiceColorEvent extends ProductScreenEvent {}

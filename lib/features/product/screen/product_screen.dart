@@ -1,13 +1,38 @@
 import 'package:dress_store/button_custom_widget.dart';
 import 'package:dress_store/color_custom_widget.dart';
 import 'package:dress_store/features/Home/models/item_model.dart';
+import 'package:dress_store/features/product/bloc/product_screen_bloc.dart';
 import 'package:dress_store/icon_favorite_button_custom.dart';
 import 'package:dress_store/size_custom_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductScreen extends StatelessWidget {
   const ProductScreen({super.key, required this.itemId});
   final int itemId;
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => ProductScreenBloc(),
+      child: ProductScreenWithBloc(itemId: itemId),
+    );
+  }
+}
+
+class ProductScreenWithBloc extends StatefulWidget {
+  const ProductScreenWithBloc({super.key, required this.itemId});
+  final int itemId;
+
+  @override
+  State<ProductScreenWithBloc> createState() => _ProductScreenState();
+}
+
+class _ProductScreenState extends State<ProductScreenWithBloc> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -152,4 +177,3 @@ class ProductScreen extends StatelessWidget {
     );
   }
 }
-
