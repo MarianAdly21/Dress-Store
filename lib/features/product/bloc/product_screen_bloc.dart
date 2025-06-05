@@ -1,4 +1,7 @@
+import 'dart:async';
+import 'dart:developer';
 import 'package:bloc/bloc.dart';
+import 'package:dress_store/demo_data.dart';
 import 'package:dress_store/features/Home/models/item_model.dart';
 import 'package:meta/meta.dart';
 
@@ -7,8 +10,20 @@ part 'product_screen_state.dart';
 
 class ProductScreenBloc extends Bloc<ProductScreenEvent, ProductScreenState> {
   ProductScreenBloc() : super(ProductScreenInitial()) {
-    on<ProductScreenEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+    on<LoadedProductEvent>(_loadedproductData);
+  }
+
+  FutureOr<void> _loadedproductData(
+      LoadedProductEvent event, Emitter<ProductScreenState> emit) async {
+    emit(LoadingState());
+    await Future.delayed(const Duration(seconds: 2));
+
+    for (var item in DemoData.items) {
+      if (item.id == event.itemId) {
+        emit(LoadedProductSuccessfullyState(itemModel: item));
+        log("the item is founded ");
+      }
+    }
+    emit(ErrorState(errorMessage: "the item not found"));
   }
 }
