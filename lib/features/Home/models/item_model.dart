@@ -2,18 +2,18 @@ import 'package:flutter/widgets.dart';
 
 class ItemModel {
   bool isFavorite;
-  bool isSizeChoice;
+
   final String image;
   final String name;
   final double price;
   final String description;
   final List<SizeModel> sizes;
-  final List<Color> colors;
+  final List<ColorModel> colors;
   final int id;
 
   ItemModel({
     this.isFavorite = false,
-    this.isSizeChoice = false,
+    
     required this.id,
     required this.image,
     required this.colors,
@@ -30,3 +30,12 @@ class SizeModel {
 
   SizeModel({required this.size, required this.id});
 }
+
+class ColorModel {
+  final Color color;
+  final int id;
+
+  ColorModel({required this.color, required this.id});
+
+}
+

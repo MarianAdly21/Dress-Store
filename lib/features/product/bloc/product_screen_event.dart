@@ -9,7 +9,12 @@ class LoadedProductEvent extends ProductScreenEvent {
   LoadedProductEvent({required this.itemId});
 }
 
-class ChoiceColorEvent extends ProductScreenEvent {}
+class ChoiceColorEvent extends ProductScreenEvent {
+  final int idItem;
+  final int idColor;
+
+  ChoiceColorEvent({required this.idItem, required this.idColor});
+}
 
 class ChoiceSizeEvent extends ProductScreenEvent {
   final int idItem;

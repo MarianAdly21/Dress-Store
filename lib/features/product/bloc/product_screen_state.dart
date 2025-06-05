@@ -19,7 +19,11 @@ class LoadedProductSuccessfullyState extends ProductScreenState {
   LoadedProductSuccessfullyState({required this.itemModel});
 }
 
-class ChoiceColorState extends ProductScreenState {}
+class ChoiceColorState extends ProductScreenState {
+  final int colorId;
+
+  ChoiceColorState({required this.colorId});
+}
 
 class ChoiceSizeState extends ProductScreenState {
    final int sizeId;

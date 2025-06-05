@@ -36,6 +36,7 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
 
   late ItemModel item;
   int? choicedSizeId;
+  int? choicedColorId;
   @override
   Widget build(BuildContext context) {
     return BlocListener<ProductScreenBloc, ProductScreenState>(
@@ -45,6 +46,9 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
         }
         if (state is ChoiceSizeState) {
           choicedSizeId = state.sizeId;
+        }
+        if (state is ChoiceColorState) {
+          choicedColorId = state.colorId;
         }
       },
       child: Scaffold(
@@ -65,7 +69,8 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
         body: BlocBuilder<ProductScreenBloc, ProductScreenState>(
           builder: (context, state) {
             if (state is LoadedProductSuccessfullyState ||
-                state is ChoiceSizeState) {
+                state is ChoiceSizeState ||
+                state is ChoiceColorState) {
               return _contentOfBody();
             } else if (state is LoadingState) {
               return const Center(
@@ -175,10 +180,17 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: List.generate(
-          item.colors.length,
-          (index) => ColorCustomWidget(
-                color: item.colors[index],
-              )),
+        item.colors.length,
+        (index) => ColorCustomWidget(
+          colorChoicedId: choicedColorId,
+          itemModel: item,
+          indexOfItem: index,
+          onColorTap: () {
+            currenBolc.add(ChoiceColorEvent(
+                idColor: item.colors[index].id, idItem: item.id));
+          },
+        ),
+      ),
       // children: [
       //   ColorCustomWidget(),
       //   ColorCustomWidget(),

@@ -14,6 +14,19 @@ class ProductScreenBloc extends Bloc<ProductScreenEvent, ProductScreenState> {
   ProductScreenBloc() : super(ProductScreenInitial()) {
     on<LoadedProductEvent>(_loadedproductData);
     on<ChoiceSizeEvent>(_choiceSize);
+    on<ChoiceColorEvent>(_choiceColor);
+  }
+
+  FutureOr<void> _choiceColor(ChoiceColorEvent event,Emitter<ProductScreenState> emit) {
+     for (var item in DemoData.items) {
+      if (item.id == event.idItem) {
+        for (var color in item.colors) {
+          if (color.id == event.idColor) {
+            emit(ChoiceColorState(colorId: event.idColor));
+          }
+        }
+      }
+    }
   }
 
   FutureOr<void> _choiceSize(
