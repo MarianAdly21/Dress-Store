@@ -7,7 +7,14 @@ class OpenHomeScreenEvent extends HomeScreenEvent {}
 
 class OpenCategoryScreenEvent extends HomeScreenEvent {}
 
-class OPenProductScreenEvent extends HomeScreenEvent {}
+class OPenProductScreenEvent extends HomeScreenEvent {
+   
+  final int itemId;
+
+  OPenProductScreenEvent({required this.itemId});
+
+
+}
 
 class OpenSearchScreenEvent extends HomeScreenEvent {}
 

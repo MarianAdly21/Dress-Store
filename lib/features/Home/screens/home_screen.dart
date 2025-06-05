@@ -186,10 +186,13 @@ class _HomeScreenState extends State<HomeScreenWithBloc> {
                 ),
               ),
               ProductsSliverGridListWidget(
-                 onFavPressed: (indexOfItem, itemModel) {
-                    currentBloc.add(AddToFavoriteEvent(index: indexOfItem,item: itemModel));
-
-                 },
+                  onTap: (itemId) {
+                    currentBloc.add(OPenProductScreenEvent(itemId: itemId));
+                  },
+                  onFavPressed: (indexOfItem, itemModel) {
+                    currentBloc.add(AddToFavoriteEvent(
+                        index: indexOfItem, item: itemModel));
+                  },
                   isFavorite: isFavorite,
                   items: items),
             ],

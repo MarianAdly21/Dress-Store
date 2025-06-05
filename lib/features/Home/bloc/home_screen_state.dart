@@ -17,7 +17,12 @@ class LoadingState extends HomeScreenState {}
 
 class ErrorState extends HomeScreenState {}
 
-class OpenProductScreenState extends HomeScreenState {}
+class OpenProductScreenState extends HomeScreenState {
+  final int itemId;
+
+  OpenProductScreenState({required this.itemId});
+
+}
 
 class OpenSearchScreenState extends HomeScreenState {}
 
