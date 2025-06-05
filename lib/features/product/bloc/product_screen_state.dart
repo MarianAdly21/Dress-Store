@@ -34,3 +34,9 @@ class ChoiceSizeState extends ProductScreenState {
 }
 
 class AddToCartState extends ProductScreenState {}
+class ConvetToFavoritetState extends ProductScreenState {
+  final bool isFavorte;
+
+  ConvetToFavoritetState({required this.isFavorte});
+}
+

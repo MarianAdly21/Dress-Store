@@ -8,17 +8,25 @@ import 'package:meta/meta.dart';
 part 'product_screen_event.dart';
 part 'product_screen_state.dart';
 
-bool isChoice = false;
-
 class ProductScreenBloc extends Bloc<ProductScreenEvent, ProductScreenState> {
   ProductScreenBloc() : super(ProductScreenInitial()) {
     on<LoadedProductEvent>(_loadedproductData);
     on<ChoiceSizeEvent>(_choiceSize);
     on<ChoiceColorEvent>(_choiceColor);
+    on<ConvertToFavoriteEvent>(_convertItemToFav);
   }
 
-  FutureOr<void> _choiceColor(ChoiceColorEvent event,Emitter<ProductScreenState> emit) {
-     for (var item in DemoData.items) {
+  FutureOr<void> _convertItemToFav(
+      ConvertToFavoriteEvent event, Emitter<ProductScreenState> emit) {
+    log("Befor Update ${event.itme.isFavorite}");
+    event.itme.isFavorite = !event.itme.isFavorite;
+    log("after Update ${event.itme.isFavorite}");
+    emit(ConvetToFavoritetState(isFavorte: event.itme.isFavorite));
+  }
+
+  FutureOr<void> _choiceColor(
+      ChoiceColorEvent event, Emitter<ProductScreenState> emit) {
+    for (var item in DemoData.items) {
       if (item.id == event.idItem) {
         for (var color in item.colors) {
           if (color.id == event.idColor) {

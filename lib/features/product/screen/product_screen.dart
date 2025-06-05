@@ -70,7 +70,8 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
           builder: (context, state) {
             if (state is LoadedProductSuccessfullyState ||
                 state is ChoiceSizeState ||
-                state is ChoiceColorState) {
+                state is ChoiceColorState ||
+                state is ConvetToFavoritetState) {
               return _contentOfBody();
             } else if (state is LoadingState) {
               return const Center(
@@ -150,7 +151,9 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
                       ),
                       IconFavoriteButtonCustom(
                         itemModel: item,
-                        onFavPressed: () {},
+                        onFavPressed: () {
+                          currenBolc.add(ConvertToFavoriteEvent(itme: item));
+                        },
                       ),
                     ],
                   ),
