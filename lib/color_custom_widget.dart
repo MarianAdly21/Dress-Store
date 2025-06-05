@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class ColorCustomWidget extends StatelessWidget {
   const ColorCustomWidget({
-    super.key,
+    super.key, required this.color,
   });
-
+  final Color color;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -16,7 +16,7 @@ class ColorCustomWidget extends StatelessWidget {
           width: 30,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            color: Colors.grey,
+            color: color,
           ),
         ),
       ),

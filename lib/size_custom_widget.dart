@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 class SizeCustomWidget extends StatelessWidget {
   const SizeCustomWidget({
     super.key,
+    required this.size,
   });
-
+  final String size;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        
-      },
+      onTap: () {},
       child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 10),
         height: 55,
         width: 55,
         decoration: BoxDecoration(
@@ -22,7 +22,7 @@ class SizeCustomWidget extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            "XL",
+            size,
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,

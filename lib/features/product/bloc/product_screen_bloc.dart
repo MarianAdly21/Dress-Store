@@ -15,15 +15,20 @@ class ProductScreenBloc extends Bloc<ProductScreenEvent, ProductScreenState> {
 
   FutureOr<void> _loadedproductData(
       LoadedProductEvent event, Emitter<ProductScreenState> emit) async {
+    bool isFound = false;
     emit(LoadingState());
     await Future.delayed(const Duration(seconds: 2));
 
     for (var item in DemoData.items) {
       if (item.id == event.itemId) {
+        isFound = true;
         emit(LoadedProductSuccessfullyState(itemModel: item));
         log("the item is founded ");
+        log(item.name);
       }
     }
-    emit(ErrorState(errorMessage: "the item not found"));
+    if (!isFound) {
+      emit(ErrorState(errorMessage: "the item not found"));
+    }
   }
 }
