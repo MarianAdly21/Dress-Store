@@ -1,4 +1,5 @@
 import 'package:dress_store/features/Home/models/item_model.dart';
+import 'package:dress_store/icon_favorite_button_custom.dart';
 import 'package:flutter/material.dart';
 
 class ProductsSliverGridListWidget extends StatelessWidget {
@@ -67,27 +68,7 @@ class _ItemCutomWidget extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(8),
-              child: CircleAvatar(
-                radius: 16,
-                backgroundColor: Colors.white,
-                child: itemModel.isFavorite
-                    ? IconButton(
-                        onPressed: onFavPressed,
-                        icon: const Icon(
-                          Icons.favorite_sharp,
-                          size: 19,
-                          color: Color(0xffFF9A9F),
-                        ),
-                      )
-                    : IconButton(
-                        onPressed: onFavPressed,
-                        icon: const Icon(
-                          Icons.favorite_border_outlined,
-                          size: 19,
-                          color: Color(0xffFF9A9F),
-                        ),
-                      ),
-              ),
+              child: IconFavoriteButtonCustom(itemModel: itemModel, onFavPressed: onFavPressed),
             )
           ]),
           const SizedBox(
@@ -119,3 +100,4 @@ class _ItemCutomWidget extends StatelessWidget {
     );
   }
 }
+
