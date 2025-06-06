@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:dress_store/demo_data.dart';
+import 'package:dress_store/models/add_to_cart_send_model.dart';
 import 'package:dress_store/models/item_model.dart';
 import 'package:meta/meta.dart';
 
@@ -14,6 +15,14 @@ class ProductScreenBloc extends Bloc<ProductScreenEvent, ProductScreenState> {
     on<ChoiceSizeEvent>(_choiceSize);
     on<ChoiceColorEvent>(_choiceColor);
     on<ConvertToFavoriteEvent>(_convertItemToFav);
+    on<AddToCartEvent>(_addProductToCart);
+  }
+
+  FutureOr<void> _addProductToCart(
+      AddToCartEvent event, Emitter<ProductScreenState> emit) {
+    emit(LoadingState());
+    Future.delayed(const Duration(seconds: 2));
+    emit(AddToCartState(addToCartModel:event.addToCartModel ));
   }
 
   FutureOr<void> _convertItemToFav(

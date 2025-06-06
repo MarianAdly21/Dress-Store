@@ -21,7 +21,11 @@ class ChoiceSizeEvent extends ProductScreenEvent {
   ChoiceSizeEvent({required this.sizeId});
 }
 
-class AddToCartEvent extends ProductScreenEvent {}
+class AddToCartEvent extends ProductScreenEvent {
+  final AddToCartModel addToCartModel;
+
+  AddToCartEvent({required this.addToCartModel});
+}
 
 class ConvertToFavoriteEvent extends ProductScreenEvent {
   final ItemModel itme;

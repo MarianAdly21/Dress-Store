@@ -26,17 +26,19 @@ class ChoiceColorState extends ProductScreenState {
 }
 
 class ChoiceSizeState extends ProductScreenState {
-   final int sizeId;
+  final int sizeId;
 
   ChoiceSizeState({required this.sizeId});
-
-
 }
 
-class AddToCartState extends ProductScreenState {}
+class AddToCartState extends ProductScreenState {
+  final AddToCartModel addToCartModel;
+
+  AddToCartState({required this.addToCartModel});
+}
+
 class ConvetToFavoritetState extends ProductScreenState {
   final bool isFavorte;
 
   ConvetToFavoritetState({required this.isFavorte});
 }
-
