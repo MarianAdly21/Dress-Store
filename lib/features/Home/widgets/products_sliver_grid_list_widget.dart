@@ -1,5 +1,5 @@
-import 'package:dress_store/features/Home/models/item_model.dart';
-import 'package:dress_store/icon_favorite_button_custom.dart';
+import 'package:dress_store/models/item_model.dart';
+import 'package:dress_store/widgets/icon_favorite_button_custom.dart';
 import 'package:flutter/material.dart';
 
 class ProductsSliverGridListWidget extends StatelessWidget {

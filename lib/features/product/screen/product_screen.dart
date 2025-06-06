@@ -1,9 +1,9 @@
-import 'package:dress_store/button_custom_widget.dart';
-import 'package:dress_store/color_custom_widget.dart';
-import 'package:dress_store/features/Home/models/item_model.dart';
+import 'package:dress_store/widgets/button_custom_widget.dart';
+import 'package:dress_store/widgets/color_custom_widget.dart';
+import 'package:dress_store/models/item_model.dart';
 import 'package:dress_store/features/product/bloc/product_screen_bloc.dart';
-import 'package:dress_store/icon_favorite_button_custom.dart';
-import 'package:dress_store/size_custom_widget.dart';
+import 'package:dress_store/widgets/icon_favorite_button_custom.dart';
+import 'package:dress_store/widgets/size_custom_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

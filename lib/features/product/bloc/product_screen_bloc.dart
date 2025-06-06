@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:dress_store/demo_data.dart';
-import 'package:dress_store/features/Home/models/item_model.dart';
+import 'package:dress_store/models/item_model.dart';
 import 'package:meta/meta.dart';
 
 part 'product_screen_event.dart';

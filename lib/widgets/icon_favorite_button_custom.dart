@@ -1,4 +1,4 @@
-import 'package:dress_store/features/Home/models/item_model.dart';
+import 'package:dress_store/models/item_model.dart';
 import 'package:flutter/material.dart';
 
 class IconFavoriteButtonCustom extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:dress_store/features/Home/models/item_model.dart';
+import 'package:dress_store/models/size_model.dart';
 import 'package:flutter/material.dart';
 
 class SizeCustomWidget extends StatelessWidget {
@@ -6,12 +6,12 @@ class SizeCustomWidget extends StatelessWidget {
     super.key,
     required this.onSizeTap,
     required this.sizeModel,
-    // required this.indexOfitem,
+    
     required this.sizeChoiced,
   });
 
   final SizeModel sizeModel;
-  // final int indexOfitem;
+ 
   final Function() onSizeTap;
   final int? sizeChoiced;
 

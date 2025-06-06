@@ -1,4 +1,5 @@
-import 'package:flutter/widgets.dart';
+import 'package:dress_store/models/color_model.dart';
+import 'package:dress_store/models/size_model.dart';
 
 class ItemModel {
   bool isFavorite;
@@ -24,18 +25,6 @@ class ItemModel {
   });
 }
 
-class SizeModel {
-  final String size;
-  final int id;
 
-  SizeModel({required this.size, required this.id});
-}
 
-class ColorModel {
-  final Color color;
-  final int id;
-
-  ColorModel({required this.color, required this.id});
-
-}
 
