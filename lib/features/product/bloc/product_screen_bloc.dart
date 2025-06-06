@@ -26,28 +26,12 @@ class ProductScreenBloc extends Bloc<ProductScreenEvent, ProductScreenState> {
 
   FutureOr<void> _choiceColor(
       ChoiceColorEvent event, Emitter<ProductScreenState> emit) {
-    for (var item in DemoData.items) {
-      if (item.id == event.idItem) {
-        for (var color in item.colors) {
-          if (color.id == event.idColor) {
-            emit(ChoiceColorState(colorId: event.idColor));
-          }
-        }
-      }
-    }
+    emit(ChoiceColorState(colorId: event.colorId));
   }
 
   FutureOr<void> _choiceSize(
       ChoiceSizeEvent event, Emitter<ProductScreenState> emit) {
-    for (var item in DemoData.items) {
-      if (item.id == event.idItem) {
-        for (var size in item.sizes) {
-          if (size.id == event.idSize) {
-            emit(ChoiceSizeState(sizeId: event.idSize));
-          }
-        }
-      }
-    }
+    emit(ChoiceSizeState(sizeId: event.sizeId));
   }
 
   FutureOr<void> _loadedproductData(

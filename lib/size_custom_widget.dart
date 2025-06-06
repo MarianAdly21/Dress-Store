@@ -5,13 +5,13 @@ class SizeCustomWidget extends StatelessWidget {
   const SizeCustomWidget({
     super.key,
     required this.onSizeTap,
-    required this.item,
-    required this.indexOfitem,
+    required this.sizeModel,
+    // required this.indexOfitem,
     required this.sizeChoiced,
   });
-  
-  final ItemModel item;
-  final int indexOfitem;
+
+  final SizeModel sizeModel;
+  // final int indexOfitem;
   final Function() onSizeTap;
   final int? sizeChoiced;
 
@@ -20,11 +20,11 @@ class SizeCustomWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onSizeTap,
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 10),
         height: 55,
         width: 55,
         decoration: BoxDecoration(
-          color: item.sizes[indexOfitem].id == sizeChoiced
+          color: sizeModel.id == sizeChoiced
               ? const Color(
                   0xffFF737A,
                 )
@@ -35,8 +35,8 @@ class SizeCustomWidget extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            item.sizes[indexOfitem].size.toString(),
-            style: TextStyle(
+            sizeModel.size,
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
               color: Colors.white,

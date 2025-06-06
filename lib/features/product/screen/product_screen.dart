@@ -39,34 +39,34 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
   int? choicedColorId;
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ProductScreenBloc, ProductScreenState>(
-      listener: (context, state) {
-        if (state is LoadedProductSuccessfullyState) {
-          item = state.itemModel;
-        }
-        if (state is ChoiceSizeState) {
-          choicedSizeId = state.sizeId;
-        }
-        if (state is ChoiceColorState) {
-          choicedColorId = state.colorId;
-        }
-      },
-      child: Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-              color: Color(0xffFD8186),
-            ),
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+            color: Color(0xffFD8186),
           ),
         ),
-        body: BlocBuilder<ProductScreenBloc, ProductScreenState>(
+      ),
+      body: BlocListener<ProductScreenBloc, ProductScreenState>(
+        listener: (context, state) {
+          if (state is LoadedProductSuccessfullyState) {
+            item = state.itemModel;
+          }
+          if (state is ChoiceSizeState) {
+            choicedSizeId = state.sizeId;
+          }
+          if (state is ChoiceColorState) {
+            choicedColorId = state.colorId;
+          }
+        },
+        child: BlocBuilder<ProductScreenBloc, ProductScreenState>(
           builder: (context, state) {
             if (state is LoadedProductSuccessfullyState ||
                 state is ChoiceSizeState ||
@@ -182,52 +182,39 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
   Widget _rowOfColors() {
     return Row(
       mainAxisSize: MainAxisSize.min,
-      children: List.generate(
-        item.colors.length,
-        (index) => ColorCustomWidget(
-          colorChoicedId: choicedColorId,
-          itemModel: item,
-          indexOfItem: index,
-          onColorTap: () {
-            currenBolc.add(ChoiceColorEvent(
-                idColor: item.colors[index].id, idItem: item.id));
-          },
-        ),
-      ),
-      // children: [
-      //   ColorCustomWidget(),
-      //   ColorCustomWidget(),
-      //   ColorCustomWidget(),
-      // ],
+      children: item.colors
+          .map(
+            (e) => ColorCustomWidget(
+              onColorTap: () {
+                currenBolc.add(ChoiceColorEvent(colorId: e.id));
+              },
+              colorModel: e,
+              choicedColorId: choicedColorId,
+            ),
+          )
+          .toList(),
     );
   }
 
   Widget _rowOfSizes() {
     return Padding(
-      padding: const EdgeInsets.only(top: 20, bottom: 10),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: List.generate(
-          item.sizes.length,
-          (index) => SizeCustomWidget(
-            onSizeTap: () {
-              currenBolc.add(ChoiceSizeEvent(
-                  idItem: item.id, idSize: item.sizes[index].id));
-            },
-            indexOfitem: index,
-            item: item,
-            sizeChoiced: choicedSizeId,
-          ),
-        ),
-
-        // children: [
-        //   SizeCustomWidget(),
-        //   SizeCustomWidget(),
-        //   SizeCustomWidget(),
-        //   SizeCustomWidget(),
-        // ],
-      ),
-    );
+        padding: const EdgeInsets.only(top: 20, bottom: 10),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: item.sizes
+              .map(
+                (e) => SizeCustomWidget(
+                  onSizeTap: () {
+                    currenBolc.add(
+                      ChoiceSizeEvent(sizeId: e.id),
+                    );
+                  },
+                  sizeModel: e,
+                  sizeChoiced: choicedSizeId,
+                ),
+              )
+              .toList(),
+        ));
   }
 
 ///////////////////////////////////////////////////////////

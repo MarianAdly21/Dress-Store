@@ -10,17 +10,15 @@ class LoadedProductEvent extends ProductScreenEvent {
 }
 
 class ChoiceColorEvent extends ProductScreenEvent {
-  final int idItem;
-  final int idColor;
+  final int colorId;
 
-  ChoiceColorEvent({required this.idItem, required this.idColor});
+  ChoiceColorEvent({required this.colorId});
 }
 
 class ChoiceSizeEvent extends ProductScreenEvent {
-  final int idItem;
-  final int idSize;
+  final int sizeId;
 
-  ChoiceSizeEvent({required this.idItem, required this.idSize});
+  ChoiceSizeEvent({required this.sizeId});
 }
 
 class AddToCartEvent extends ProductScreenEvent {}

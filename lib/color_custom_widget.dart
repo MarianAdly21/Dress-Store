@@ -4,15 +4,14 @@ import 'package:flutter/material.dart';
 class ColorCustomWidget extends StatelessWidget {
   const ColorCustomWidget({
     super.key,
-    required this.itemModel,
-    required this.indexOfItem,
-     this.onColorTap,
-    required this.colorChoicedId,
+    required this.colorModel,
+    this.onColorTap,
+    required this.choicedColorId,
   });
-  final ItemModel itemModel;
-  final int indexOfItem;
+  final ColorModel colorModel;
+
   final void Function()? onColorTap;
-  final int? colorChoicedId;
+  final int? choicedColorId;
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +23,8 @@ class ColorCustomWidget extends StatelessWidget {
           height: 30,
           width: 30,
           decoration: BoxDecoration(
-            border: colorChoicedId == itemModel.colors[indexOfItem].id
-                ? itemModel.colors[indexOfItem].color == Colors.black
+            border: colorModel.id == choicedColorId
+                ? colorModel.color == Colors.black
                     ? Border.all(
                         color: Colors.white,
                         width: 2,
@@ -36,7 +35,7 @@ class ColorCustomWidget extends StatelessWidget {
                       )
                 : null,
             borderRadius: BorderRadius.circular(30),
-            color: itemModel.colors[indexOfItem].color,
+            color: colorModel.color,
           ),
         ),
       ),
