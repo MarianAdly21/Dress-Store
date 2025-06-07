@@ -1,4 +1,5 @@
 import 'package:dress_store/models/add_to_cart_send_model.dart';
+import 'package:dress_store/widgets/back_button_custom_widget.dart';
 import 'package:dress_store/widgets/button_custom_widget.dart';
 import 'package:dress_store/widgets/color_custom_widget.dart';
 import 'package:dress_store/models/item_model.dart';
@@ -46,15 +47,7 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios_new,
-            color: Color(0xffFD8186),
-          ),
-        ),
+        leading: const BackButtonCustomWidget(),
       ),
       body: BlocListener<ProductScreenBloc, ProductScreenState>(
         listener: (context, state) {
@@ -243,3 +236,4 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
     currenBolc.add(LoadedProductEvent(itemId: widget.id));
   }
 }
+

@@ -1,8 +1,11 @@
 import 'package:dress_store/features/Home/bloc/home_screen_bloc.dart';
+import 'package:dress_store/features/cart/screen/cart_screen.dart';
 import 'package:dress_store/models/item_model.dart';
 import 'package:dress_store/features/Home/widgets/category_list.dart';
 import 'package:dress_store/features/Home/widgets/products_sliver_grid_list_widget.dart';
 import 'package:dress_store/features/product/screen/product_screen.dart';
+import 'package:dress_store/widgets/background_custom_widget.dart';
+import 'package:dress_store/widgets/profile_custom_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -45,6 +48,11 @@ class _HomeScreenState extends State<HomeScreenWithBloc> {
         if (state is LoadedHomeScreenDataSuccessfullyState) {
           items = state.items;
         }
+        if (state is OpenCartScreenState) {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+            return CartScreen();
+          }));
+        }
         if (state is OpenProductScreenState) {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
             return ProductScreen(itemId: state.itemId);
@@ -79,7 +87,9 @@ class _HomeScreenState extends State<HomeScreenWithBloc> {
         BottomNavigationBarItem(
           label: '',
           icon: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                currentBloc.add(OpenCartScreenEvent());
+              },
               icon: const Icon(
                 Icons.shopping_cart,
                 size: 40,
@@ -100,17 +110,7 @@ class _HomeScreenState extends State<HomeScreenWithBloc> {
 
   Widget _pageContent() {
     return Stack(children: [
-      const Positioned.fill(
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Color(0xffF8A3A7), Color(0xffFCFCFC)],
-            ),
-          ),
-        ),
-      ),
+      const BackgroundCustomWidget(),
       SafeArea(
           child: Padding(
         padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
@@ -142,10 +142,7 @@ class _HomeScreenState extends State<HomeScreenWithBloc> {
                 ),
               ),
             ),
-            const CircleAvatar(
-              backgroundImage: AssetImage('assets/images/profile .jpg'),
-              radius: 25,
-            ),
+            ProfileCustomWidget(),
           ],
         ),
         Padding(

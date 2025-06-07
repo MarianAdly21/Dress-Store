@@ -21,12 +21,15 @@ class OpenProductScreenState extends HomeScreenState {
   final int itemId;
 
   OpenProductScreenState({required this.itemId});
-
 }
 
 class OpenSearchScreenState extends HomeScreenState {}
 
-class OpenCartScreenState extends HomeScreenState {}
+class OpenCartScreenState extends HomeScreenState {
+  final List<AddToCartSendModel> items;
+
+  OpenCartScreenState({required this.items});
+}
 
 class OpenProfileScreenState extends HomeScreenState {}
 

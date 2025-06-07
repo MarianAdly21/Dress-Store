@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:dress_store/demo_data.dart';
+import 'package:dress_store/models/add_to_cart_send_model.dart';
 import 'package:dress_store/models/item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
@@ -14,6 +15,13 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     on<OpenHomeScreenEvent>(_loadedHomeScreenData);
     on<AddToFavoriteEvent>(_convertItemToFavorite);
     on<OPenProductScreenEvent>(_OpenProductScreen);
+    on<OpenCartScreenEvent>(_openCartScreen);
+  }
+
+  FutureOr<void> _openCartScreen(
+      OpenCartScreenEvent event, Emitter<HomeScreenState> emit) {
+    emit(OpenCartScreenState(items: DemoData.cartItems));
+    log("push to cart screen succussfly");
   }
 
   FutureOr<void> _OpenProductScreen(
