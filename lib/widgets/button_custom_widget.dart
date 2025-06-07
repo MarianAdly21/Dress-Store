@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 
 class ButtonCustomWidget extends StatelessWidget {
   const ButtonCustomWidget({
-    super.key,
+    super.key, required this.onTap, required this.text,
   });
-
+  final void Function() onTap;
+  final String text;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.only(top: 16),
         child: Container(
@@ -19,8 +20,8 @@ class ButtonCustomWidget extends StatelessWidget {
           ),
           child: Center(
             child: Text(
-              "Add to your cart  ",
-              style: TextStyle(
+            text ,
+              style:const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: Color(0xffFF9A9F),

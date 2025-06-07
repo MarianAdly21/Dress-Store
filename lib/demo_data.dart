@@ -1,9 +1,11 @@
+import 'package:dress_store/models/add_to_cart_send_model.dart';
 import 'package:dress_store/models/color_model.dart';
 import 'package:dress_store/models/item_model.dart';
 import 'package:dress_store/models/size_model.dart';
 import 'package:flutter/material.dart';
 
 class DemoData {
+  static List<AddToCartSendModel> cartItems = [];
   static List<ItemModel> items = [
     ItemModel(
         id: 1,

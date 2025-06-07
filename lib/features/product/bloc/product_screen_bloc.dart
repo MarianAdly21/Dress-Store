@@ -20,9 +20,13 @@ class ProductScreenBloc extends Bloc<ProductScreenEvent, ProductScreenState> {
 
   FutureOr<void> _addProductToCart(
       AddToCartEvent event, Emitter<ProductScreenState> emit) {
-    emit(LoadingState());
-    Future.delayed(const Duration(seconds: 2));
-    emit(AddToCartState(addToCartModel:event.addToCartModel ));
+    DemoData.cartItems.add(AddToCartSendModel(
+      productId: event.addToCartSendModel.productId,
+      sizeId: event.addToCartSendModel.sizeId,
+      colorId: event.addToCartSendModel.colorId,
+    ));
+    log("the item of ID:${event.addToCartSendModel.productId} is added to cart");
+    emit(AddToCartState(isAddedItem: true));
   }
 
   FutureOr<void> _convertItemToFav(

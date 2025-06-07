@@ -1,3 +1,4 @@
+import 'package:dress_store/models/add_to_cart_send_model.dart';
 import 'package:dress_store/widgets/button_custom_widget.dart';
 import 'package:dress_store/widgets/color_custom_widget.dart';
 import 'package:dress_store/models/item_model.dart';
@@ -37,6 +38,7 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
   late ItemModel item;
   int? choicedSizeId;
   int? choicedColorId;
+  bool isAdded = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,13 +67,17 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
           if (state is ChoiceColorState) {
             choicedColorId = state.colorId;
           }
+          if (state is AddToCartState) {
+            isAdded = state.isAddedItem;
+          }
         },
         child: BlocBuilder<ProductScreenBloc, ProductScreenState>(
           builder: (context, state) {
             if (state is LoadedProductSuccessfullyState ||
                 state is ChoiceSizeState ||
                 state is ChoiceColorState ||
-                state is ConvetToFavoritetState) {
+                state is ConvetToFavoritetState ||
+                state is AddToCartState) {
               return _contentOfBody();
             } else if (state is LoadingState) {
               return const Center(
@@ -169,7 +175,19 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
                       ),
                     ),
                   ),
-                  const ButtonCustomWidget(),
+                  ButtonCustomWidget(
+                    onTap: () {
+                      currenBolc.add(AddToCartEvent(
+                        addToCartSendModel: AddToCartSendModel(
+                          productId: item.id,
+                          sizeId: choicedSizeId,
+                          colorId: choicedColorId,
+                        
+                        ),
+                      ));
+                    },
+                    text: isAdded ? "Done Added" : "Add to your cart",
+                  ),
                 ],
               ),
             ),

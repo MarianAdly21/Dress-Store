@@ -1,9 +1,12 @@
-class AddToCartModel {
+class AddToCartSendModel {
   final int productId;
-  final int sizeId;
-  final int colorId;
+  final int? sizeId;
+  final int? colorId;
+  final int numOfItem;
 
-  AddToCartModel({required this.productId, required this.sizeId, required this.colorId});
-
-  
+  AddToCartSendModel(
+      {this.numOfItem = 1,
+      required this.productId,
+      required this.sizeId,
+      required this.colorId});
 }

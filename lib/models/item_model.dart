@@ -3,7 +3,6 @@ import 'package:dress_store/models/size_model.dart';
 
 class ItemModel {
   bool isFavorite;
-
   final String image;
   final String name;
   final double price;
@@ -14,7 +13,6 @@ class ItemModel {
 
   ItemModel({
     this.isFavorite = false,
-    
     required this.id,
     required this.image,
     required this.colors,
@@ -24,7 +22,3 @@ class ItemModel {
     required this.price,
   });
 }
-
-
-
-

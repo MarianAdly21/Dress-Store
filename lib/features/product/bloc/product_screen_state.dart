@@ -32,9 +32,9 @@ class ChoiceSizeState extends ProductScreenState {
 }
 
 class AddToCartState extends ProductScreenState {
-  final AddToCartModel addToCartModel;
+  final bool isAddedItem;
 
-  AddToCartState({required this.addToCartModel});
+  AddToCartState({required this.isAddedItem});
 }
 
 class ConvetToFavoritetState extends ProductScreenState {
