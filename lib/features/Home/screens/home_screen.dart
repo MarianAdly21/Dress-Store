@@ -194,7 +194,8 @@ class _HomeScreenState extends State<HomeScreenWithBloc> {
           return const Center(child: CircularProgressIndicator());
         } else if (state is LoadedHomeScreenDataSuccessfullyState ||
             state is ConvertItemToFavoriteState ||
-            state is OpenProductScreenState) {
+            state is OpenProductScreenState ||
+            state is OpenCartScreenState) {
           return Expanded(
               child: CustomScrollView(
             slivers: [

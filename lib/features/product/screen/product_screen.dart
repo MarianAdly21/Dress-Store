@@ -186,6 +186,8 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
             ),
           ),
         )
+      
+      
       ],
     );
   }
