@@ -1,3 +1,5 @@
+import 'package:dress_store/features/cart/bloc/cart_screen_bloc.dart';
+import 'package:dress_store/models/add_to_cart_send_model.dart';
 import 'package:dress_store/models/color_model.dart';
 import 'package:dress_store/models/size_model.dart';
 import 'package:dress_store/widgets/back_button_custom_widget.dart';
@@ -7,9 +9,35 @@ import 'package:dress_store/widgets/color_custom_widget.dart';
 import 'package:dress_store/widgets/profile_custom_widget.dart';
 import 'package:dress_store/widgets/size_custom_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => CartScreenBloc(),
+      child: const CartScreenWithBloc(),
+    );
+  }
+}
+
+class CartScreenWithBloc extends StatefulWidget {
+  const CartScreenWithBloc({super.key});
+
+  @override
+  State<CartScreenWithBloc> createState() => _CartScreenState();
+}
+
+late List<AddToCartSendModel> items;
+
+class _CartScreenState extends State<CartScreenWithBloc> {
+  @override
+  void initState() {
+    BlocProvider.of<CartScreenBloc>(context).add(LoadedItemsToCartEvent());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,13 +65,32 @@ class CartScreen extends StatelessWidget {
         children: [
           const BackgroundCustomWidget(),
           SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: ListView.builder(
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return _cartItem();
-                  }),
+            child: BlocListener<CartScreenBloc, CartScreenState>(
+              listener: (context, state) {
+                if (state is LoadedItemsToCartState) {
+                  items = state.cartItems;
+                }
+              },
+              child: BlocBuilder<CartScreenBloc, CartScreenState>(
+                builder: (context, state) {
+                  if (state is LoadedItemsToCartState) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: ListView.builder(
+                          itemCount: items.length,
+                          itemBuilder: (context, index) {
+                            return _cartItem(index);
+                          }),
+                    );
+                  } else if (state is LoadingState) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (state is ErrorState) {
+                    return Center(child: Text(state.errorMessage));
+                  } else {
+                    return const SizedBox();
+                  }
+                },
+              ),
             ),
           ),
           _partOfTotalPriceAndPay()
@@ -51,6 +98,7 @@ class CartScreen extends StatelessWidget {
       ),
     );
   }
+
 ///////////////////////////////////////////////////////////
 //////////////////// Widget methods ///////////////////////
 ///////////////////////////////////////////////////////////
@@ -129,7 +177,7 @@ class CartScreen extends StatelessWidget {
     );
   }
 
-  Widget _cartItem() {
+  Widget _cartItem(int index) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 32),
       child: Row(
@@ -139,81 +187,89 @@ class CartScreen extends StatelessWidget {
             width: 160,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
-                image: const DecorationImage(
+                image: DecorationImage(
                     image: AssetImage(
-                      "assets/images/item7.jpeg",
+                      items[index].item.image,
                     ),
                     fit: BoxFit.fill)),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  children: [
-                    const Text(
-                      "marianaAdly",
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.delete_outline,
-                          color: Color(0xffFD8186),
-                          size: 35,
-                        ))
-                  ],
-                ),
-                const Text(
-                  "155 EGP",
-                  style: TextStyle(
-                    color: Color(0xff828282),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-                Row(
-                  children: [
-                    ColorCustomWidget(
-                      colorModel: ColorModel(color: Colors.black, id: 4),
-                      choicedColorId: 2,
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    SizeCustomWidget(
-                      onSizeTap: () {},
-                      sizeModel: SizeModel(size: "XL", id: 1),
-                      sizeChoiced: 1,
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Container(
-                  height: 40,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: Color(0xffFF737A)),
-                  child: Row(
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
                     children: [
-                      IconButton(onPressed: () {}, icon: Icon(Icons.add)),
-                      Text("1"),
+                      Expanded(
+                        child: Text(
+                          items[index].item.name,
+                          style: const TextStyle(
+                            overflow: TextOverflow.ellipsis,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                       IconButton(
                           onPressed: () {},
                           icon: const Icon(
-                            Icons.remove,
+                            Icons.delete_outline,
+                            color: Color(0xffFD8186),
+                            size: 35,
                           ))
                     ],
                   ),
-                ),
-              ],
+                  Text(
+                    "${items[index].item.price} EGP",
+                    style: const TextStyle(
+                      color: Color(0xff828282),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      ColorCustomWidget(
+                        colorModel: items[index].item.colors.firstWhere(
+                            (element) => element.id == items[index].colorId),
+                        choicedColorId: items[index].colorId,
+                      ),
+                      const SizedBox(width: 10),
+                      SizeCustomWidget(
+                        onSizeTap: () {},
+                        sizeModel: items[index].item.sizes.firstWhere(
+                              (element) => element.id == items[index].sizeId,
+                            ),
+                        sizeChoiced: items[index].sizeId,
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Container(
+                    width: 110,
+                    height: 40,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: const Color(0xffFF737A)),
+                    child: Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.add),
+                        ),
+                        Text(items[index].numOfItem.toString()),
+                        IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.remove,
+                            ))
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           )
         ],

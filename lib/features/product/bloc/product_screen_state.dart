@@ -33,8 +33,9 @@ class ChoiceSizeState extends ProductScreenState {
 
 class AddToCartState extends ProductScreenState {
   final bool isAddedItem;
+  final bool isAlreadyExiste;
 
-  AddToCartState({required this.isAddedItem});
+  AddToCartState( {required this.isAlreadyExiste, required this.isAddedItem});
 }
 
 class ConvetToFavoritetState extends ProductScreenState {

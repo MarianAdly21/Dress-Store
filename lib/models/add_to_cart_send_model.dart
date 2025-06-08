@@ -1,12 +1,15 @@
+import 'package:dress_store/models/item_model.dart';
+
 class AddToCartSendModel {
-  final int productId;
+  final ItemModel item;
   final int? sizeId;
   final int? colorId;
   final int numOfItem;
 
-  AddToCartSendModel(
-      {this.numOfItem = 1,
-      required this.productId,
-      required this.sizeId,
-      required this.colorId});
+  AddToCartSendModel({
+    this.numOfItem = 1,
+    required this.item,
+    required this.sizeId,
+    required this.colorId,
+  });
 }

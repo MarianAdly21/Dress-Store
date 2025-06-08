@@ -9,6 +9,8 @@ import 'package:meta/meta.dart';
 part 'product_screen_event.dart';
 part 'product_screen_state.dart';
 
+bool isExisting = false;
+
 class ProductScreenBloc extends Bloc<ProductScreenEvent, ProductScreenState> {
   ProductScreenBloc() : super(ProductScreenInitial()) {
     on<LoadedProductEvent>(_loadedproductData);
@@ -20,13 +22,24 @@ class ProductScreenBloc extends Bloc<ProductScreenEvent, ProductScreenState> {
 
   FutureOr<void> _addProductToCart(
       AddToCartEvent event, Emitter<ProductScreenState> emit) {
-    DemoData.cartItems.add(AddToCartSendModel(
-      productId: event.addToCartSendModel.productId,
-      sizeId: event.addToCartSendModel.sizeId,
-      colorId: event.addToCartSendModel.colorId,
-    ));
-    log("the item of ID:${event.addToCartSendModel.productId} is added to cart");
-    emit(AddToCartState(isAddedItem: true));
+    for (var item in DemoData.cartItems) {
+      if (event.addToCartSendModel.colorId == item.colorId &&
+          event.addToCartSendModel.sizeId == item.sizeId) {
+        isExisting = true;
+        break;
+      } else {
+        isExisting = false;
+      }
+    }
+    if (!isExisting) {
+      DemoData.cartItems.add(AddToCartSendModel(
+        item: event.addToCartSendModel.item,
+        sizeId: event.addToCartSendModel.sizeId,
+        colorId: event.addToCartSendModel.colorId,
+      ));
+      log("the item of ID:${event.addToCartSendModel.item.id} is added to cart");
+      emit(AddToCartState(isAddedItem: true, isAlreadyExiste: isExisting));
+    }
   }
 
   FutureOr<void> _convertItemToFav(

@@ -35,7 +35,7 @@ class ColorCustomWidget extends StatelessWidget {
                       )
                 : null,
             borderRadius: BorderRadius.circular(30),
-            color: colorModel.color,
+            color: colorModel.color ,
           ),
         ),
       ),

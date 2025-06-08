@@ -40,6 +40,7 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
   int? choicedSizeId;
   int? choicedColorId;
   bool isAdded = false;
+  bool isExisting = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,6 +63,7 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
           }
           if (state is AddToCartState) {
             isAdded = state.isAddedItem;
+            isExisting = state.isAlreadyExiste;
           }
         },
         child: BlocBuilder<ProductScreenBloc, ProductScreenState>(
@@ -172,12 +174,19 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
                     onTap: () {
                       currenBolc.add(AddToCartEvent(
                         addToCartSendModel: AddToCartSendModel(
-                          productId: item.id,
-                          sizeId: choicedSizeId,
-                          colorId: choicedColorId,
-                        
+                          item: item,
+                          sizeId: choicedSizeId ?? item.colors[0].id,
+                          colorId: choicedColorId ?? item.sizes[0].id,
                         ),
                       ));
+
+                      // if (isExisting) {
+                      //   ScaffoldMessenger.of(context)
+                      //       .showSnackBar(const SnackBar(
+                      //     content: Text("This Item Is Already Existing"),
+                      //     duration: Duration(seconds: 3),
+                      //   ));
+                      //}
                     },
                     text: isAdded ? "Done Added" : "Add to your cart",
                   ),
@@ -186,8 +195,6 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
             ),
           ),
         )
-      
-      
       ],
     );
   }
@@ -238,4 +245,3 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
     currenBolc.add(LoadedProductEvent(itemId: widget.id));
   }
 }
-
