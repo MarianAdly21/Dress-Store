@@ -35,7 +35,7 @@ late List<AddToCartSendModel> items;
 class _CartScreenState extends State<CartScreenWithBloc> {
   @override
   void initState() {
-    BlocProvider.of<CartScreenBloc>(context).add(LoadedItemsToCartEvent());
+    currenBloc.add(LoadedItemsToCartEvent());
     super.initState();
   }
 
@@ -73,7 +73,8 @@ class _CartScreenState extends State<CartScreenWithBloc> {
               },
               child: BlocBuilder<CartScreenBloc, CartScreenState>(
                 builder: (context, state) {
-                  if (state is LoadedItemsToCartState) {
+                  if (state is LoadedItemsToCartState ||
+                      state is DeleteItemState) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: ListView.builder(
@@ -213,7 +214,10 @@ class _CartScreenState extends State<CartScreenWithBloc> {
                         ),
                       ),
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            currenBloc.add(
+                                DeleteItemEvent(itemId: items[index].item.id));
+                          },
                           icon: const Icon(
                             Icons.delete_outline,
                             color: Color(0xffFD8186),
@@ -276,4 +280,6 @@ class _CartScreenState extends State<CartScreenWithBloc> {
       ),
     );
   }
+
+  CartScreenBloc get currenBloc => BlocProvider.of<CartScreenBloc>(context);
 }

@@ -5,7 +5,11 @@ sealed class CartScreenEvent {}
 
 class LoadedItemsToCartEvent extends CartScreenEvent {}
 
-class DeleteItemEvent extends CartScreenEvent {}
+class DeleteItemEvent extends CartScreenEvent {
+  final int itemId;
+
+  DeleteItemEvent({required this.itemId});
+}
 
 class IncreaseOrDecreaseItemEvent extends CartScreenEvent {}
 
