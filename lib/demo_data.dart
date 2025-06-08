@@ -11,7 +11,7 @@ class DemoData {
         id: 1,
         image: "assets/images/item1.webp",
         name: "Kendry Gdsxvx",
-        price: 2.1333,
+        price: 2133,
         description:
             "The dress strapless  Its elegant silhouette is enhanced by a large bow detail, adding a touch of .",
         sizes: [
@@ -29,7 +29,7 @@ class DemoData {
         id: 2,
         image: "assets/images/item2.webp",
         name: "Kendry Gdsxvx",
-        price: 2.1333,
+        price: 2133,
         description:
             "The dress strapless  Its elegant silhouette is enhanced by a large bow detail, adding a touch of .",
         sizes: [
@@ -47,7 +47,7 @@ class DemoData {
         id: 3,
         image: "assets/images/item3.webp",
         name: "Kendry Gdsxvx",
-        price: 2.1333,
+        price: 2133,
         description:
             "The dress strapless  Its elegant silhouette is enhanced by a large bow detail, adding a touch of .",
         sizes: [
@@ -83,7 +83,7 @@ class DemoData {
         id: 5,
         image: "assets/images/item5.webp",
         name: "Kendry Gdsxvx",
-        price: 2.1333,
+        price: 2133,
         description:
             "The dress strapless  Its elegant silhouette is enhanced by a large bow detail, adding a touch of .",
         sizes: [
@@ -101,7 +101,7 @@ class DemoData {
         id: 6,
         image: "assets/images/item1.webp",
         name: "Kendry Gdsxvx",
-        price: 2.1333,
+        price: 2133,
         description:
             "The dress strapless  Its elegant silhouette is enhanced by a large bow detail, adding a touch of .",
         sizes: [

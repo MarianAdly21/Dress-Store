@@ -5,7 +5,7 @@ class ItemModel {
   bool isFavorite;
   final String image;
   final String name;
-  final double price;
+   double price;
   final String description;
   final List<SizeModel> sizes;
   final List<ColorModel> colors;

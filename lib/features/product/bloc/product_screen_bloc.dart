@@ -22,16 +22,34 @@ class ProductScreenBloc extends Bloc<ProductScreenEvent, ProductScreenState> {
 
   FutureOr<void> _addProductToCart(
       AddToCartEvent event, Emitter<ProductScreenState> emit) {
+    bool isColorExisting = false;
+    bool isSizerExisting = false;
     for (var item in DemoData.cartItems) {
-      if (event.addToCartSendModel.colorId == item.colorId &&
-          event.addToCartSendModel.sizeId == item.sizeId) {
-        isExisting = true;
-        break;
-      } else {
-        isExisting = false;
+      for (int i = 0; i < item.item.colors.length; i++) {
+        if (item.item.id == event.addToCartSendModel.item.id &&
+            event.addToCartSendModel.colorId == item.item.colors[i].id) {
+          isColorExisting = true;
+          break;
+        }
+
+        for (int i = 0; i < item.item.sizes.length; i++) {
+          if (item.item.id == event.addToCartSendModel.item.id &&
+              event.addToCartSendModel.sizeId == item.item.sizes[i].id) {
+            isSizerExisting = true;
+            break;
+          }
+        }
+        // if (event.addToCartSendModel.colorId == item.colorId &&
+        //     event.addToCartSendModel.sizeId == item.sizeId) {
+        //   isExisting = true;
+        //   break;
+        // } else {
+        //   isExisting = false;
+        // }
       }
     }
-    if (!isExisting) {
+
+    if (!isSizerExisting || !isColorExisting) {
       DemoData.cartItems.add(AddToCartSendModel(
         item: event.addToCartSendModel.item,
         sizeId: event.addToCartSendModel.sizeId,

@@ -1,7 +1,6 @@
+import 'package:dress_store/demo_data.dart';
 import 'package:dress_store/features/cart/bloc/cart_screen_bloc.dart';
 import 'package:dress_store/models/add_to_cart_send_model.dart';
-import 'package:dress_store/models/color_model.dart';
-import 'package:dress_store/models/size_model.dart';
 import 'package:dress_store/widgets/back_button_custom_widget.dart';
 import 'package:dress_store/widgets/background_custom_widget.dart';
 import 'package:dress_store/widgets/button_custom_widget.dart';
@@ -31,6 +30,7 @@ class CartScreenWithBloc extends StatefulWidget {
 }
 
 late List<AddToCartSendModel> items;
+double totalPrice = 0;
 
 class _CartScreenState extends State<CartScreenWithBloc> {
   @override
@@ -61,43 +61,42 @@ class _CartScreenState extends State<CartScreenWithBloc> {
           SizedBox(width: 25),
         ],
       ),
-      body: Stack(
-        children: [
-          const BackgroundCustomWidget(),
-          SafeArea(
-            child: BlocListener<CartScreenBloc, CartScreenState>(
-              listener: (context, state) {
-                if (state is LoadedItemsToCartState) {
-                  items = state.cartItems;
-                }
-              },
-              child: BlocBuilder<CartScreenBloc, CartScreenState>(
-                builder: (context, state) {
-                  if (state is LoadedItemsToCartState ||
-                      state is DeleteItemState ||
-                      state is IncreaseItemState ||
-                      state is DecreaseItemState) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: ListView.builder(
-                          itemCount: items.length,
-                          itemBuilder: (context, index) {
-                            return _cartItem(index);
-                          }),
-                    );
-                  } else if (state is LoadingState) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (state is ErrorState) {
-                    return Center(child: Text(state.errorMessage));
-                  } else {
-                    return const SizedBox();
-                  }
-                },
-              ),
-            ),
-          ),
-          _partOfTotalPriceAndPay()
-        ],
+      body: BlocListener<CartScreenBloc, CartScreenState>(
+        listener: (context, state) {
+          if (state is LoadedItemsToCartState) {
+            items = state.cartItems;
+          }
+        },
+        child: BlocBuilder<CartScreenBloc, CartScreenState>(
+          builder: (context, state) {
+            if (state is LoadedItemsToCartState ||
+                state is DeleteItemState ||
+                state is IncreaseItemState ||
+                state is DecreaseItemState) {
+              return Stack(
+                children: [
+                  const BackgroundCustomWidget(),
+                  SafeArea(
+                      child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: ListView.builder(
+                        itemCount: items.length,
+                        itemBuilder: (context, index) {
+                          return _cartItem(index);
+                        }),
+                  )),
+                  _partOfTotalPriceAndPay()
+                ],
+              );
+            } else if (state is LoadingState) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is ErrorState) {
+              return Center(child: Text(state.errorMessage));
+            } else {
+              return const SizedBox();
+            }
+          },
+        ),
       ),
     );
   }
@@ -123,16 +122,18 @@ class _CartScreenState extends State<CartScreenWithBloc> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Total (3 Item)",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    "Total (${DemoData.cartItems.length} Item)",
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   Text(
-                    "10,000 EGP",
-                    style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
+                    " ${totalPrice = DemoData.cartItems.fold(0.0, (sum, element) => sum + (element.item.price * element.numOfItem))} EGP",
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w800, fontSize: 20),
                   )
                 ],
               ),
@@ -144,7 +145,7 @@ class _CartScreenState extends State<CartScreenWithBloc> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   Text(
-                    "10,000 EGP",
+                    "1000 EGP",
                     style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
                   )
                 ],
@@ -156,16 +157,17 @@ class _CartScreenState extends State<CartScreenWithBloc> {
                 thickness: 1,
                 height: 10,
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     "Sub Total",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   Text(
-                    "10,000 EGP",
-                    style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
+                    "${totalPrice - 1000} EGP",
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w800, fontSize: 20),
                   )
                 ],
               ),
@@ -271,7 +273,8 @@ class _CartScreenState extends State<CartScreenWithBloc> {
                         Text(items[index].numOfItem.toString()),
                         IconButton(
                             onPressed: () {
-                                  currenBloc.add(DecreaseItemEvent(item: items[index].item ));
+                              currenBloc.add(
+                                  DecreaseItemEvent(item: items[index].item));
                             },
                             icon: const Icon(
                               Icons.remove,
