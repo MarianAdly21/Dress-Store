@@ -19,7 +19,8 @@ class ErrorState extends CartScreenState {
   ErrorState({required this.errorMessage});
 }
 
-class IncreaseOrDecreaseItemState extends CartScreenState {}
+class IncreaseItemState extends CartScreenState {}
+class DecreaseItemState extends CartScreenState {}
 
 class DeleteItemState extends CartScreenState {}
 

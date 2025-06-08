@@ -11,6 +11,16 @@ class DeleteItemEvent extends CartScreenEvent {
   DeleteItemEvent({required this.itemId});
 }
 
-class IncreaseOrDecreaseItemEvent extends CartScreenEvent {}
+class IncreaseItemEvent extends CartScreenEvent {
+  final ItemModel item;
+
+  IncreaseItemEvent({required this.item});
+}
+
+class DecreaseItemEvent extends CartScreenEvent {
+  final ItemModel item;
+
+  DecreaseItemEvent({required this.item});
+}
 
 class PayEvent extends CartScreenEvent {}

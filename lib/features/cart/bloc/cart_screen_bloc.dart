@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:dress_store/demo_data.dart';
 import 'package:dress_store/models/add_to_cart_send_model.dart';
+import 'package:dress_store/models/item_model.dart';
 import 'package:meta/meta.dart';
 
 part 'cart_screen_event.dart';
@@ -12,6 +13,32 @@ class CartScreenBloc extends Bloc<CartScreenEvent, CartScreenState> {
   CartScreenBloc() : super(CartScreenInitial()) {
     on<LoadedItemsToCartEvent>(_cartItems);
     on<DeleteItemEvent>(_deleteItemFromCart);
+    on<IncreaseItemEvent>(_increaseItem);
+    on<DecreaseItemEvent>(_decreaseItem);
+  }
+
+  FutureOr<void> _decreaseItem(
+      DecreaseItemEvent event, Emitter<CartScreenState> emit) {
+    for (var element in DemoData.cartItems) {
+      if (event.item.id == element.item.id) {
+        if (element.numOfItem > 1) {
+          element.numOfItem--;
+        }
+        break;
+      }
+    }
+    emit(DecreaseItemState());
+  }
+
+  FutureOr<void> _increaseItem(
+      IncreaseItemEvent event, Emitter<CartScreenState> emit) {
+    for (var element in DemoData.cartItems) {
+      if (event.item.id == element.item.id) {
+        element.numOfItem++;
+        break;
+      }
+    }
+    emit(IncreaseItemState());
   }
 
   FutureOr<void> _deleteItemFromCart(

@@ -74,7 +74,9 @@ class _CartScreenState extends State<CartScreenWithBloc> {
               child: BlocBuilder<CartScreenBloc, CartScreenState>(
                 builder: (context, state) {
                   if (state is LoadedItemsToCartState ||
-                      state is DeleteItemState) {
+                      state is DeleteItemState ||
+                      state is IncreaseItemState ||
+                      state is DecreaseItemState) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: ListView.builder(
@@ -260,12 +262,17 @@ class _CartScreenState extends State<CartScreenWithBloc> {
                     child: Row(
                       children: [
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            currenBloc.add(
+                                IncreaseItemEvent(item: items[index].item));
+                          },
                           icon: const Icon(Icons.add),
                         ),
                         Text(items[index].numOfItem.toString()),
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                                  currenBloc.add(DecreaseItemEvent(item: items[index].item ));
+                            },
                             icon: const Icon(
                               Icons.remove,
                             ))

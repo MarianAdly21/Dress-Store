@@ -4,7 +4,7 @@ class AddToCartSendModel {
   final ItemModel item;
   final int? sizeId;
   final int? colorId;
-  final int numOfItem;
+   int numOfItem;
 
   AddToCartSendModel({
     this.numOfItem = 1,
