@@ -46,8 +46,7 @@ class _CartScreenState extends State<CartScreenWithBloc> {
       appBar: AppBar(
         leadingWidth: 100,
         centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+        backgroundColor: Color(0xffF8A3A7),
         leading: const BackButtonCustomWidget(),
         title: const Text(
           "My Cart",
@@ -76,16 +75,24 @@ class _CartScreenState extends State<CartScreenWithBloc> {
               return Stack(
                 children: [
                   const BackgroundCustomWidget(),
-                  SafeArea(
-                      child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: ListView.builder(
-                        itemCount: items.length,
-                        itemBuilder: (context, index) {
-                          return _cartItem(index);
-                        }),
-                  )),
-                  _partOfTotalPriceAndPay()
+                  Column(
+                    children: [
+                      Expanded(
+                        child: ListView.builder(
+                            padding: const EdgeInsets.only(
+                              top: 100,
+                              left: 16,
+                              right: 16,
+                              bottom: 16,
+                            ),
+                            itemCount: items.length,
+                            itemBuilder: (context, index) {
+                              return _cartItem(index);
+                            }),
+                      ),
+                      _partOfTotalPriceAndPay(),
+                    ],
+                  )
                 ],
               );
             } else if (state is LoadingState) {
@@ -105,78 +112,73 @@ class _CartScreenState extends State<CartScreenWithBloc> {
 //////////////////// Widget methods ///////////////////////
 ///////////////////////////////////////////////////////////
   Widget _partOfTotalPriceAndPay() {
-    return Positioned(
-      bottom: 0,
-      left: 0,
-      right: 0,
-      child: Container(
-        height: 330,
-        decoration: BoxDecoration(
-            color: const Color(0xffF8A3A7).withOpacity(0.9),
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30),
-            )),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 24),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Total (${DemoData.cartItems.length} Item)",
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                  Text(
-                    " ${totalPrice = DemoData.cartItems.fold(0.0, (sum, element) => sum + (element.item.price * element.numOfItem))} EGP",
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w800, fontSize: 20),
-                  )
-                ],
-              ),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Discount",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                  Text(
-                    "1000 EGP",
-                    style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
-                  )
-                ],
-              ),
-              const Divider(
-                color: Color(0xff6C8090),
-                indent: 30,
-                endIndent: 30,
-                thickness: 1,
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "Sub Total",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                  Text(
-                    "${totalPrice - 1000} EGP",
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w800, fontSize: 20),
-                  )
-                ],
-              ),
-              ButtonCustomWidget(
-                onTap: () {},
-                text: "Pay",
-              )
-            ],
-          ),
+    return Container(
+      height: 280,
+      decoration: BoxDecoration(
+          color: const Color(0xffF8A3A7).withOpacity(0.9),
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+          )),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 24),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Total (${DemoData.cartItems.length} Item)",
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+                Text(
+                  " ${totalPrice = DemoData.cartItems.fold(0.0, (sum, element) => sum + (element.item.price * element.quantity))} EGP",
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w800, fontSize: 20),
+                )
+              ],
+            ),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Discount",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+                Text(
+                  "1000 EGP",
+                  style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
+                )
+              ],
+            ),
+            const Divider(
+              color: Color(0xff6C8090),
+              indent: 30,
+              endIndent: 30,
+              thickness: 1,
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  "Sub Total",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+                Text(
+                  "${totalPrice - 1000} EGP",
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w800, fontSize: 20),
+                )
+              ],
+            ),
+            ButtonCustomWidget(
+              onTap: () {},
+              text: "Pay",
+            )
+          ],
         ),
       ),
     );
@@ -270,7 +272,7 @@ class _CartScreenState extends State<CartScreenWithBloc> {
                           },
                           icon: const Icon(Icons.add),
                         ),
-                        Text(items[index].numOfItem.toString()),
+                        Text(items[index].quantity.toString()),
                         IconButton(
                             onPressed: () {
                               currenBloc.add(

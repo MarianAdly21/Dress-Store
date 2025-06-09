@@ -31,22 +31,31 @@ class ProductScreenBloc extends Bloc<ProductScreenEvent, ProductScreenState> {
           isColorExisting = true;
           break;
         }
-
-        for (int i = 0; i < item.item.sizes.length; i++) {
-          if (item.item.id == event.addToCartSendModel.item.id &&
-              event.addToCartSendModel.sizeId == item.item.sizes[i].id) {
-            isSizerExisting = true;
-            break;
-          }
-        }
-        // if (event.addToCartSendModel.colorId == item.colorId &&
-        //     event.addToCartSendModel.sizeId == item.sizeId) {
-        //   isExisting = true;
-        //   break;
-        // } else {
-        //   isExisting = false;
-        // }
       }
+
+      for (int i = 0; i < item.item.sizes.length; i++) {
+        if (item.item.id == event.addToCartSendModel.item.id &&
+            event.addToCartSendModel.sizeId == item.item.sizes[i].id) {
+          isSizerExisting = true;
+          break;
+        }
+      }
+      if (isSizerExisting && isColorExisting) {
+        break;
+      }
+    }
+    if (isSizerExisting && isColorExisting) {
+      log(event.addToCartSendModel.quantity.toString());
+      for (var e in DemoData.cartItems) {
+        if (e.item.id == event.addToCartSendModel.item.id &&
+            e.colorId == event.addToCartSendModel.colorId &&
+            e.sizeId == event.addToCartSendModel.sizeId) {
+          e.quantity++;
+          emit(AddToCartState(isAddedItem: true, isAlreadyExiste: isExisting));
+          break;
+        }
+      }
+      log(event.addToCartSendModel.quantity.toString());
     }
 
     if (!isSizerExisting || !isColorExisting) {

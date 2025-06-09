@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dress_store/models/add_to_cart_send_model.dart';
 import 'package:dress_store/widgets/back_button_custom_widget.dart';
 import 'package:dress_store/widgets/button_custom_widget.dart';
@@ -179,6 +181,7 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
                           colorId: choicedColorId ?? item.sizes[0].id,
                         ),
                       ));
+                     
 
                       // if (isExisting) {
                       //   ScaffoldMessenger.of(context)
@@ -209,7 +212,7 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
                 currenBolc.add(ChoiceColorEvent(colorId: e.id));
               },
               colorModel: e,
-              choicedColorId: choicedColorId,
+              choicedColorId: choicedColorId ?? item.colors[0].id,
             ),
           )
           .toList(),
@@ -230,7 +233,7 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
                     );
                   },
                   sizeModel: e,
-                  sizeChoiced: choicedSizeId,
+                  sizeChoiced: choicedSizeId ?? item.sizes[0].id,
                 ),
               )
               .toList(),

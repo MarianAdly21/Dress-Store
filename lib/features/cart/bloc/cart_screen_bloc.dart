@@ -21,8 +21,8 @@ class CartScreenBloc extends Bloc<CartScreenEvent, CartScreenState> {
       DecreaseItemEvent event, Emitter<CartScreenState> emit) {
     for (var element in DemoData.cartItems) {
       if (event.item.id == element.item.id) {
-        if (element.numOfItem > 1) {
-          element.numOfItem--;
+        if (element.quantity > 1) {
+          element.quantity--;
         }
         break;
       }
@@ -34,7 +34,7 @@ class CartScreenBloc extends Bloc<CartScreenEvent, CartScreenState> {
       IncreaseItemEvent event, Emitter<CartScreenState> emit) {
     for (var element in DemoData.cartItems) {
       if (event.item.id == element.item.id) {
-        element.numOfItem++;
+        element.quantity++;
         break;
       }
     }
@@ -43,15 +43,7 @@ class CartScreenBloc extends Bloc<CartScreenEvent, CartScreenState> {
 
   FutureOr<void> _deleteItemFromCart(
       DeleteItemEvent event, Emitter<CartScreenState> emit) {
-    // for (var element in DemoData.cartItems)
-    // {
-    //   if(event.itemId==element.item.id)
-    //   {
-    //     DemoData.cartItems.removeWhere((element) => false)
-
-    //   }
-
-    // }
+   
     DemoData.cartItems
         .removeWhere((element) => event.itemId == element.item.id);
 
