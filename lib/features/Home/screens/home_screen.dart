@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreenWithBloc> {
         }
         if (state is OpenCartScreenState) {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return CartScreen();
+            return const CartScreen();
           }));
         }
         if (state is OpenProductScreenState) {
@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreenWithBloc> {
     return ClipRRect(
       borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(40), topRight: Radius.circular(40)),
-      child: BottomNavigationBar(fixedColor: Color(0xffF8A3A7), items: [
+      child: BottomNavigationBar(fixedColor: const Color(0xffF8A3A7), items: [
         BottomNavigationBarItem(
           label: "",
           icon: IconButton(
@@ -115,7 +115,6 @@ class _HomeScreenState extends State<HomeScreenWithBloc> {
           child: Padding(
         padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
         child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _homeHeaderWidget(),
             _homeBodyWidget(),
@@ -142,7 +141,7 @@ class _HomeScreenState extends State<HomeScreenWithBloc> {
                 ),
               ),
             ),
-            ProfileCustomWidget(),
+            const ProfileCustomWidget(),
           ],
         ),
         Padding(
@@ -219,11 +218,10 @@ class _HomeScreenState extends State<HomeScreenWithBloc> {
               ),
               ProductsSliverGridListWidget(
                   onTap: (itemId) {
-                    currentBloc.add(OPenProductScreenEvent(itemId: itemId));
+                    _oPenProductScreenEvent(itemId);
                   },
                   onFavPressed: (indexOfItem, itemModel) {
-                    currentBloc.add(AddToFavoriteEvent(
-                        index: indexOfItem, item: itemModel));
+                    _addToFavoriteEvent(indexOfItem, itemModel);
                   },
                   isFavorite: isFavorite,
                   items: items),
@@ -242,5 +240,13 @@ class _HomeScreenState extends State<HomeScreenWithBloc> {
   HomeScreenBloc get currentBloc => context.read<HomeScreenBloc>();
   void _openHomeScreenEvent() {
     currentBloc.add(OpenHomeScreenEvent());
+  }
+
+  void _addToFavoriteEvent(int indexOfItem, ItemModel itemModel) {
+    currentBloc.add(AddToFavoriteEvent(index: indexOfItem, item: itemModel));
+  }
+
+  void _oPenProductScreenEvent(int itemId) {
+    currentBloc.add(OPenProductScreenEvent(itemId: itemId));
   }
 }

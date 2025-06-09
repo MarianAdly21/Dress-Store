@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:dress_store/models/add_to_cart_send_model.dart';
 import 'package:dress_store/widgets/back_button_custom_widget.dart';
@@ -42,7 +41,6 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
   int? choicedSizeId;
   int? choicedColorId;
   bool isAdded = false;
-  bool isExisting = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +63,6 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
           }
           if (state is AddToCartState) {
             isAdded = state.isAddedItem;
-            isExisting = state.isAlreadyExiste;
           }
         },
         child: BlocBuilder<ProductScreenBloc, ProductScreenState>(
@@ -181,15 +178,6 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
                           colorId: choicedColorId ?? item.sizes[0].id,
                         ),
                       ));
-                     
-
-                      // if (isExisting) {
-                      //   ScaffoldMessenger.of(context)
-                      //       .showSnackBar(const SnackBar(
-                      //     content: Text("This Item Is Already Existing"),
-                      //     duration: Duration(seconds: 3),
-                      //   ));
-                      //}
                     },
                     text: isAdded ? "Done Added" : "Add to your cart",
                   ),

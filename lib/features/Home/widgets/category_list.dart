@@ -40,13 +40,17 @@ class _CategoryCustomWidget extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.only(right: 10),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12), color: Color(0xffFD8186)),
+            borderRadius: BorderRadius.circular(12),
+            color: const Color(0xffFD8186)),
         child: Center(
             child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           child: Text(
             categoryModel.categoryName,
-            style: const TextStyle(
+            style: TextStyle(
+              color: categoryModel.categoryName == "All"
+                  ? Colors.white
+                  : Colors.black,
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),

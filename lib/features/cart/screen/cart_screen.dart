@@ -46,7 +46,7 @@ class _CartScreenState extends State<CartScreenWithBloc> {
       appBar: AppBar(
         leadingWidth: 100,
         centerTitle: true,
-        backgroundColor: Color(0xffF8A3A7),
+        backgroundColor: const Color(0xffF8A3A7),
         leading: const BackButtonCustomWidget(),
         title: const Text(
           "My Cart",
@@ -61,50 +61,49 @@ class _CartScreenState extends State<CartScreenWithBloc> {
         ],
       ),
       body: BlocListener<CartScreenBloc, CartScreenState>(
-        listener: (context, state) {
-          if (state is LoadedItemsToCartState) {
-            items = state.cartItems;
-          }
-        },
-        child: BlocBuilder<CartScreenBloc, CartScreenState>(
-          builder: (context, state) {
-            if (state is LoadedItemsToCartState ||
-                state is DeleteItemState ||
-                state is IncreaseItemState ||
-                state is DecreaseItemState) {
-              return Stack(
-                children: [
-                  const BackgroundCustomWidget(),
-                  Column(
-                    children: [
-                      Expanded(
-                        child: ListView.builder(
-                            padding: const EdgeInsets.only(
-                              top: 100,
-                              left: 16,
-                              right: 16,
-                              bottom: 16,
-                            ),
-                            itemCount: items.length,
-                            itemBuilder: (context, index) {
-                              return _cartItem(index);
-                            }),
-                      ),
-                      _partOfTotalPriceAndPay(),
-                    ],
-                  )
-                ],
-              );
-            } else if (state is LoadingState) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is ErrorState) {
-              return Center(child: Text(state.errorMessage));
-            } else {
-              return const SizedBox();
+          listener: (context, state) {
+            if (state is LoadedItemsToCartState) {
+              items = state.cartItems;
             }
           },
-        ),
-      ),
+          child: Stack(
+            children: [
+              const BackgroundCustomWidget(),
+              BlocBuilder<CartScreenBloc, CartScreenState>(
+                builder: (context, state) {
+                  if (state is LoadedItemsToCartState ||
+                      state is DeleteItemState ||
+                      state is IncreaseItemState ||
+                      state is DecreaseItemState) {
+                    return Column(
+                      children: [
+                        Expanded(
+                          child: ListView.builder(
+                              padding: const EdgeInsets.only(
+                                top: 100,
+                                left: 16,
+                                right: 16,
+                                bottom: 16,
+                              ),
+                              itemCount: items.length,
+                              itemBuilder: (context, index) {
+                                return _cartItem(index);
+                              }),
+                        ),
+                        _partOfTotalPriceAndPay(),
+                      ],
+                    );
+                  } else if (state is LoadingState) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (state is ErrorState) {
+                    return Center(child: Text(state.errorMessage));
+                  } else {
+                    return const SizedBox();
+                  }
+                },
+              )
+            ],
+          )),
     );
   }
 
@@ -168,7 +167,9 @@ class _CartScreenState extends State<CartScreenWithBloc> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 Text(
-                  "${totalPrice - 1000} EGP",
+                  totalPrice == 0.0
+                      ? "$totalPrice EGP"
+                      : " ${totalPrice - 1000} EGP",
                   style: const TextStyle(
                       fontWeight: FontWeight.w800, fontSize: 20),
                 )
@@ -222,7 +223,7 @@ class _CartScreenState extends State<CartScreenWithBloc> {
                       IconButton(
                           onPressed: () {
                             currenBloc.add(
-                                DeleteItemEvent(itemId: items[index].item.id));
+                                DeleteItemEvent(itemId: items[index].item.id,itemIndex: index));
                           },
                           icon: const Icon(
                             Icons.delete_outline,

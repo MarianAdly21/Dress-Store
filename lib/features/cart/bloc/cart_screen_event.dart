@@ -7,8 +7,9 @@ class LoadedItemsToCartEvent extends CartScreenEvent {}
 
 class DeleteItemEvent extends CartScreenEvent {
   final int itemId;
+  final int itemIndex;
 
-  DeleteItemEvent({required this.itemId});
+  DeleteItemEvent({required this.itemIndex,required this.itemId});
 }
 
 class IncreaseItemEvent extends CartScreenEvent {

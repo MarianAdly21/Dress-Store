@@ -14,7 +14,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
   HomeScreenBloc() : super(HomeScreenInitial()) {
     on<OpenHomeScreenEvent>(_loadedHomeScreenData);
     on<AddToFavoriteEvent>(_convertItemToFavorite);
-    on<OPenProductScreenEvent>(_OpenProductScreen);
+    on<OPenProductScreenEvent>(_openProductScreen);
     on<OpenCartScreenEvent>(_openCartScreen);
   }
 
@@ -24,7 +24,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     log("push to cart screen succussfly");
   }
 
-  FutureOr<void> _OpenProductScreen(
+  FutureOr<void> _openProductScreen(
       OPenProductScreenEvent event, Emitter<HomeScreenState> emit) {
     emit(OpenProductScreenState(itemId: event.itemId));
     log("the item id is ${event.itemId}");

@@ -9,8 +9,6 @@ import 'package:meta/meta.dart';
 part 'product_screen_event.dart';
 part 'product_screen_state.dart';
 
-bool isExisting = false;
-
 class ProductScreenBloc extends Bloc<ProductScreenEvent, ProductScreenState> {
   ProductScreenBloc() : super(ProductScreenInitial()) {
     on<LoadedProductEvent>(_loadedproductData);
@@ -23,49 +21,44 @@ class ProductScreenBloc extends Bloc<ProductScreenEvent, ProductScreenState> {
   FutureOr<void> _addProductToCart(
       AddToCartEvent event, Emitter<ProductScreenState> emit) {
     bool isColorExisting = false;
-    bool isSizerExisting = false;
+    bool isSizeExisting = false;
     for (var item in DemoData.cartItems) {
-      for (int i = 0; i < item.item.colors.length; i++) {
-        if (item.item.id == event.addToCartSendModel.item.id &&
-            event.addToCartSendModel.colorId == item.item.colors[i].id) {
-          isColorExisting = true;
-          break;
-        }
+      if (item.item.id == event.addToCartSendModel.item.id &&
+          event.addToCartSendModel.colorId == item.colorId) {
+        isColorExisting = true;
+      }
+      if (item.item.id == event.addToCartSendModel.item.id &&
+          event.addToCartSendModel.sizeId == item.sizeId) {
+        isSizeExisting = true;
+      
       }
 
-      for (int i = 0; i < item.item.sizes.length; i++) {
-        if (item.item.id == event.addToCartSendModel.item.id &&
-            event.addToCartSendModel.sizeId == item.item.sizes[i].id) {
-          isSizerExisting = true;
-          break;
-        }
-      }
-      if (isSizerExisting && isColorExisting) {
+      if (isSizeExisting && isColorExisting) {
         break;
       }
     }
-    if (isSizerExisting && isColorExisting) {
+    if (isSizeExisting && isColorExisting) {
       log(event.addToCartSendModel.quantity.toString());
       for (var e in DemoData.cartItems) {
         if (e.item.id == event.addToCartSendModel.item.id &&
             e.colorId == event.addToCartSendModel.colorId &&
             e.sizeId == event.addToCartSendModel.sizeId) {
           e.quantity++;
-          emit(AddToCartState(isAddedItem: true, isAlreadyExiste: isExisting));
+          emit(AddToCartState(isAddedItem: true));
           break;
         }
       }
       log(event.addToCartSendModel.quantity.toString());
     }
 
-    if (!isSizerExisting || !isColorExisting) {
+    if (!isSizeExisting || !isColorExisting) {
       DemoData.cartItems.add(AddToCartSendModel(
         item: event.addToCartSendModel.item,
         sizeId: event.addToCartSendModel.sizeId,
         colorId: event.addToCartSendModel.colorId,
       ));
       log("the item of ID:${event.addToCartSendModel.item.id} is added to cart");
-      emit(AddToCartState(isAddedItem: true, isAlreadyExiste: isExisting));
+      emit(AddToCartState(isAddedItem: true));
     }
   }
 
