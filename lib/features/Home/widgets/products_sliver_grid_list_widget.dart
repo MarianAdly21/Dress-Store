@@ -68,7 +68,8 @@ class _ItemCutomWidget extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(8),
-              child: IconFavoriteButtonCustom(itemModel: itemModel, onFavPressed: onFavPressed),
+              child: IconFavoriteButtonCustom(
+                  itemModel: itemModel, onFavPressed: onFavPressed),
             )
           ]),
           const SizedBox(
@@ -100,4 +101,3 @@ class _ItemCutomWidget extends StatelessWidget {
     );
   }
 }
-
