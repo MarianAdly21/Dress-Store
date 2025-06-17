@@ -5,15 +5,16 @@ sealed class HomeScreenEvent {}
 
 class OpenHomeScreenEvent extends HomeScreenEvent {}
 
-class OpenCategoryScreenEvent extends HomeScreenEvent {}
+class OpenCategoryScreenEvent extends HomeScreenEvent {
+  final int catecoryId;
+
+  OpenCategoryScreenEvent({required this.catecoryId});
+}
 
 class OPenProductScreenEvent extends HomeScreenEvent {
-   
   final int itemId;
 
   OPenProductScreenEvent({required this.itemId});
-
-
 }
 
 class OpenSearchScreenEvent extends HomeScreenEvent {}

@@ -16,6 +16,13 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     on<AddToFavoriteEvent>(_convertItemToFavorite);
     on<OPenProductScreenEvent>(_openProductScreen);
     on<OpenCartScreenEvent>(_openCartScreen);
+    on<OpenCategoryScreenEvent>(_openCategoryScreen);
+  }
+
+  FutureOr<void> _openCategoryScreen(
+      OpenCategoryScreenEvent event, Emitter<HomeScreenState> emit) {
+    log(event.catecoryId.toString());
+    emit(OpenCategoryScreenState(categoryId: event.catecoryId));
   }
 
   FutureOr<void> _openCartScreen(

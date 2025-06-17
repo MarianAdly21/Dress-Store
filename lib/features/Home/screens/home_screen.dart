@@ -1,5 +1,6 @@
 import 'package:dress_store/features/Home/bloc/home_screen_bloc.dart';
 import 'package:dress_store/features/cart/screen/cart_screen.dart';
+import 'package:dress_store/features/category/category_screen.dart';
 import 'package:dress_store/models/item_model.dart';
 import 'package:dress_store/features/Home/widgets/category_list.dart';
 import 'package:dress_store/features/Home/widgets/products_sliver_grid_list_widget.dart';
@@ -44,6 +45,13 @@ class _HomeScreenState extends State<HomeScreenWithBloc> {
       listener: (context, state) {
         if (state is ConvertItemToFavoriteState) {
           isFavorite = state.isFavorte;
+        }
+        if (state is OpenCategoryScreenState) {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+            return CategoryScreen(
+              categoryId: state.categoryId,
+            );
+          }));
         }
         if (state is LoadedHomeScreenDataSuccessfullyState) {
           items = state.items;
@@ -194,7 +202,8 @@ class _HomeScreenState extends State<HomeScreenWithBloc> {
         } else if (state is LoadedHomeScreenDataSuccessfullyState ||
             state is ConvertItemToFavoriteState ||
             state is OpenProductScreenState ||
-            state is OpenCartScreenState) {
+            state is OpenCartScreenState ||
+            state is OpenCategoryScreenState) {
           return Expanded(
               child: CustomScrollView(
             slivers: [
@@ -208,8 +217,13 @@ class _HomeScreenState extends State<HomeScreenWithBloc> {
                   height: 6,
                 ),
               ),
-              const SliverToBoxAdapter(
-                child: CategoryList(),
+              SliverToBoxAdapter(
+                child: CategoryList(
+                  onCatecoryTap: (categoryId) {
+                    currentBloc
+                        .add(OpenCategoryScreenEvent(catecoryId: categoryId));
+                  },
+                ),
               ),
               const SliverToBoxAdapter(
                 child: SizedBox(
