@@ -1,6 +1,6 @@
 import 'package:dress_store/features/Home/bloc/home_screen_bloc.dart';
 import 'package:dress_store/features/cart/screen/cart_screen.dart';
-import 'package:dress_store/features/category/category_screen.dart';
+import 'package:dress_store/features/category/screen/category_screen.dart';
 import 'package:dress_store/models/item_model.dart';
 import 'package:dress_store/features/Home/widgets/category_list.dart';
 import 'package:dress_store/features/Home/widgets/products_sliver_grid_list_widget.dart';
