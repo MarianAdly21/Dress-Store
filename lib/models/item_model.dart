@@ -5,14 +5,16 @@ class ItemModel {
   bool isFavorite;
   final String image;
   final String name;
-   double price;
+  double price;
   final String description;
   final List<SizeModel> sizes;
   final List<ColorModel> colors;
   final int id;
+  final int categoryId;
 
-  ItemModel({
+  ItemModel( { 
     this.isFavorite = false,
+    required this.categoryId,
     required this.id,
     required this.image,
     required this.colors,

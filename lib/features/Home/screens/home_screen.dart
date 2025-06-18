@@ -47,11 +47,14 @@ class _HomeScreenState extends State<HomeScreenWithBloc> {
           isFavorite = state.isFavorte;
         }
         if (state is OpenCategoryScreenState) {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return CategoryScreen(
-              categoryId: state.categoryId,
-            );
-          }));
+          if (state.categoryId == 1) {
+          } else {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+              return CategoryScreen(
+                categoryId: state.categoryId,
+              );
+            }));
+          }
         }
         if (state is LoadedHomeScreenDataSuccessfullyState) {
           items = state.items;

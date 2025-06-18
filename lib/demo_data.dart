@@ -24,7 +24,8 @@ class DemoData {
           ColorModel(color: Colors.black, id: 1),
           ColorModel(color: Colors.white, id: 2),
           ColorModel(color: Colors.orange, id: 3)
-        ]),
+        ],
+        categoryId: 4),
     ItemModel(
         id: 2,
         image: "assets/images/item2.webp",
@@ -42,7 +43,8 @@ class DemoData {
           ColorModel(color: Colors.black, id: 1),
           ColorModel(color: Colors.white, id: 2),
           ColorModel(color: Colors.orange, id: 3)
-        ]),
+        ],
+        categoryId: 2),
     ItemModel(
         id: 3,
         image: "assets/images/item3.webp",
@@ -60,7 +62,8 @@ class DemoData {
           ColorModel(color: Colors.black, id: 1),
           ColorModel(color: Colors.white, id: 2),
           ColorModel(color: Colors.orange, id: 3)
-        ]),
+        ],
+        categoryId: 2),
     ItemModel(
         id: 4,
         image: "assets/images/item4.webp",
@@ -78,7 +81,8 @@ class DemoData {
           ColorModel(color: Colors.black, id: 1),
           ColorModel(color: Colors.white, id: 2),
           ColorModel(color: Colors.orange, id: 3)
-        ]),
+        ],
+        categoryId: 4),
     ItemModel(
         id: 5,
         image: "assets/images/item5.webp",
@@ -96,7 +100,8 @@ class DemoData {
           ColorModel(color: Colors.black, id: 1),
           ColorModel(color: Colors.white, id: 2),
           ColorModel(color: Colors.orange, id: 3)
-        ]),
+        ],
+        categoryId: 2),
     ItemModel(
         id: 6,
         image: "assets/images/item1.webp",
@@ -114,6 +119,224 @@ class DemoData {
           ColorModel(color: Colors.black, id: 1),
           ColorModel(color: Colors.white, id: 2),
           ColorModel(color: Colors.orange, id: 3)
-        ]),
+        ],
+        categoryId: 4),
+    ItemModel(
+      categoryId: 2,
+      id: 7,
+      image: 'assets/images/mini1.webp',
+      colors: [
+        ColorModel(color: Colors.black, id: 1),
+        ColorModel(color: Colors.white, id: 2),
+        ColorModel(color: Colors.orange, id: 3)
+      ],
+      description: "bcjkasdjskmksxllsx",
+      sizes: [
+        SizeModel(size: 'XS', id: 1),
+        SizeModel(size: 'S', id: 2),
+        SizeModel(size: 'M', id: 3),
+        SizeModel(size: 'L', id: 4),
+      ],
+      name: "Kendry Gdsxvx",
+      price: 888,
+    ),
+    ItemModel(
+        categoryId: 2,
+        id: 8,
+        image: 'assets/images/mini2.webp',
+        colors: [
+          ColorModel(color: Colors.black, id: 1),
+          ColorModel(color: Colors.white, id: 2),
+          ColorModel(color: Colors.orange, id: 3)
+        ],
+        description: "bcjkasdjskmksxllsx",
+        sizes: [
+          SizeModel(size: 'XS', id: 1),
+          SizeModel(size: 'S', id: 2),
+          SizeModel(size: 'M', id: 3),
+          SizeModel(size: 'L', id: 4),
+        ],
+        name: "Kendry Gdsxvx",
+        price: 888),
+    ItemModel(
+        categoryId: 2,
+        id: 9,
+        image: 'assets/images/mini3.webp',
+        colors: [
+          ColorModel(color: Colors.black, id: 1),
+          ColorModel(color: Colors.white, id: 2),
+          ColorModel(color: Colors.orange, id: 3)
+        ],
+        description: "bcjkasdjskmksxllsx",
+        sizes: [
+          SizeModel(size: 'XS', id: 1),
+          SizeModel(size: 'S', id: 2),
+          SizeModel(size: 'M', id: 3),
+          SizeModel(size: 'L', id: 4),
+        ],
+        name: "Kendry Gdsxvx",
+        price: 888),
+    ItemModel(
+        categoryId: 2,
+        id: 10,
+        image: 'assets/images/mini4.webp',
+        colors: [
+          ColorModel(color: Colors.black, id: 1),
+          ColorModel(color: Colors.white, id: 2),
+          ColorModel(color: Colors.orange, id: 3)
+        ],
+        description: "bcjkasdjskmksxllsx",
+        sizes: [
+          SizeModel(size: 'XS', id: 1),
+          SizeModel(size: 'S', id: 2),
+          SizeModel(size: 'M', id: 3),
+          SizeModel(size: 'L', id: 4),
+        ],
+        name: "Kendry Gdsxvx",
+        price: 888),
+    ItemModel(
+        categoryId: 2,
+        id: 11,
+        image: 'assets/images/mini5.webp',
+        colors: [
+          ColorModel(color: Colors.black, id: 1),
+          ColorModel(color: Colors.white, id: 2),
+          ColorModel(color: Colors.orange, id: 3)
+        ],
+        description: "bcjkasdjskmksxllsx",
+        sizes: [
+          SizeModel(size: 'XS', id: 1),
+          SizeModel(size: 'S', id: 2),
+          SizeModel(size: 'M', id: 3),
+          SizeModel(size: 'L', id: 4),
+        ],
+        name: "Kendry Gdsxvx",
+        price: 888),
+    ItemModel(
+        categoryId: 2,
+        id: 12,
+        image: 'assets/images/mini6.webp',
+        colors: [
+          ColorModel(color: Colors.black, id: 1),
+          ColorModel(color: Colors.white, id: 2),
+          ColorModel(color: Colors.orange, id: 3)
+        ],
+        description: "bcjkasdjskmksxllsx",
+        sizes: [
+          SizeModel(size: 'XS', id: 1),
+          SizeModel(size: 'S', id: 2),
+          SizeModel(size: 'M', id: 3),
+          SizeModel(size: 'L', id: 4),
+        ],
+        name: "Kendry Gdsxvx",
+        price: 888),
+    ItemModel(
+        categoryId: 3,
+        id: 13,
+        image: 'assets/images/midi1.webp',
+        colors: [
+          ColorModel(color: Colors.black, id: 1),
+          ColorModel(color: Colors.white, id: 2),
+          ColorModel(color: Colors.orange, id: 3)
+        ],
+        description: "bcjkasdjskmksxllsx",
+        sizes: [
+          SizeModel(size: 'XS', id: 1),
+          SizeModel(size: 'S', id: 2),
+          SizeModel(size: 'M', id: 3),
+          SizeModel(size: 'L', id: 4),
+        ],
+        name: "Kendry Gdsxvx",
+        price: 888),
+    ItemModel(
+        categoryId: 3,
+        id: 14,
+        image: 'assets/images/midi2.webp',
+        colors: [
+          ColorModel(color: Colors.black, id: 1),
+          ColorModel(color: Colors.white, id: 2),
+          ColorModel(color: Colors.orange, id: 3)
+        ],
+        description: "bcjkasdjskmksxllsx",
+        sizes: [
+          SizeModel(size: 'XS', id: 1),
+          SizeModel(size: 'S', id: 2),
+          SizeModel(size: 'M', id: 3),
+          SizeModel(size: 'L', id: 4),
+        ],
+        name: "Kendry Gdsxvx",
+        price: 888),
+    ItemModel(
+        categoryId: 3,
+        id: 15,
+        image: 'assets/images/midi3.webp',
+        colors: [
+          ColorModel(color: Colors.black, id: 1),
+          ColorModel(color: Colors.white, id: 2),
+          ColorModel(color: Colors.orange, id: 3)
+        ],
+        description: "bcjkasdjskmksxllsx",
+        sizes: [
+          SizeModel(size: 'XS', id: 1),
+          SizeModel(size: 'S', id: 2),
+          SizeModel(size: 'M', id: 3),
+          SizeModel(size: 'L', id: 4),
+        ],
+        name: "Kendry Gdsxvx",
+        price: 888),
+    ItemModel(
+        categoryId: 3,
+        id: 16,
+        image: 'assets/images/midi4.webp',
+        colors: [
+          ColorModel(color: Colors.black, id: 1),
+          ColorModel(color: Colors.white, id: 2),
+          ColorModel(color: Colors.orange, id: 3)
+        ],
+        description: "bcjkasdjskmksxllsx",
+        sizes: [
+          SizeModel(size: 'XS', id: 1),
+          SizeModel(size: 'S', id: 2),
+          SizeModel(size: 'M', id: 3),
+          SizeModel(size: 'L', id: 4),
+        ],
+        name: "Kendry Gdsxvx",
+        price: 888),
+    ItemModel(
+        categoryId: 3,
+        id: 17,
+        image: 'assets/images/midi5.webp',
+        colors: [
+          ColorModel(color: Colors.black, id: 1),
+          ColorModel(color: Colors.white, id: 2),
+          ColorModel(color: Colors.orange, id: 3)
+        ],
+        description: "bcjkasdjskmksxllsx",
+        sizes: [
+          SizeModel(size: 'XS', id: 1),
+          SizeModel(size: 'S', id: 2),
+          SizeModel(size: 'M', id: 3),
+          SizeModel(size: 'L', id: 4),
+        ],
+        name: "Kendry Gdsxvx",
+        price: 888),
+    ItemModel(
+        categoryId: 3,
+        id: 18,
+        image: 'assets/images/midi6.webp',
+        colors: [
+          ColorModel(color: Colors.black, id: 1),
+          ColorModel(color: Colors.white, id: 2),
+          ColorModel(color: Colors.orange, id: 3)
+        ],
+        description: "bcjkasdjskmksxllsx",
+        sizes: [
+          SizeModel(size: 'XS', id: 1),
+          SizeModel(size: 'S', id: 2),
+          SizeModel(size: 'M', id: 3),
+          SizeModel(size: 'L', id: 4),
+        ],
+        name: "Kendry Gdsxvx",
+        price: 888),
   ];
 }
