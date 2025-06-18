@@ -19,7 +19,7 @@ class DemoData {
         id: 1,
         image: "assets/images/item1.webp",
         name: "Kendry Gdsxvx",
-        price: 2133,
+        price: 5133,
         description:
             "The dress strapless  Its elegant silhouette is enhanced by a large bow detail, adding a touch of .",
         sizes: [
@@ -57,7 +57,7 @@ class DemoData {
         id: 3,
         image: "assets/images/item3.webp",
         name: "Kendry Gdsxvx",
-        price: 2133,
+        price: 213,
         description:
             "The dress strapless  Its elegant silhouette is enhanced by a large bow detail, adding a touch of .",
         sizes: [
@@ -95,7 +95,7 @@ class DemoData {
         id: 5,
         image: "assets/images/item5.webp",
         name: "Kendry Gdsxvx",
-        price: 2133,
+        price: 233,
         description:
             "The dress strapless  Its elegant silhouette is enhanced by a large bow detail, adding a touch of .",
         sizes: [
@@ -165,7 +165,7 @@ class DemoData {
           SizeModel(size: 'L', id: 4),
         ],
         name: "Kendry Gdsxvx",
-        price: 888),
+        price: 848),
     ItemModel(
         categoryId: 2,
         id: 9,
@@ -237,7 +237,7 @@ class DemoData {
           SizeModel(size: 'L', id: 4),
         ],
         name: "Kendry Gdsxvx",
-        price: 888),
+        price: 8448),
     ItemModel(
         categoryId: 3,
         id: 13,
@@ -255,7 +255,7 @@ class DemoData {
           SizeModel(size: 'L', id: 4),
         ],
         name: "Kendry Gdsxvx",
-        price: 888),
+        price: 777),
     ItemModel(
         categoryId: 3,
         id: 14,
@@ -309,7 +309,7 @@ class DemoData {
           SizeModel(size: 'L', id: 4),
         ],
         name: "Kendry Gdsxvx",
-        price: 888),
+        price: 1188),
     ItemModel(
         categoryId: 3,
         id: 17,
@@ -327,24 +327,6 @@ class DemoData {
           SizeModel(size: 'L', id: 4),
         ],
         name: "Kendry Gdsxvx",
-        price: 888),
-    ItemModel(
-        categoryId: 3,
-        id: 18,
-        image: 'assets/images/midi6.webp',
-        colors: [
-          ColorModel(color: Colors.black, id: 1),
-          ColorModel(color: Colors.white, id: 2),
-          ColorModel(color: Colors.orange, id: 3)
-        ],
-        description: "bcjkasdjskmksxllsx",
-        sizes: [
-          SizeModel(size: 'XS', id: 1),
-          SizeModel(size: 'S', id: 2),
-          SizeModel(size: 'M', id: 3),
-          SizeModel(size: 'L', id: 4),
-        ],
-        name: "Kendry Gdsxvx",
-        price: 888),
+        price: 86878),
   ];
 }

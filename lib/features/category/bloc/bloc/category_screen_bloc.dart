@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:dress_store/demo_data.dart';
-import 'package:dress_store/features/product/bloc/product_screen_bloc.dart';
 import 'package:dress_store/models/item_model.dart';
 import 'package:meta/meta.dart';
 
@@ -26,14 +25,19 @@ class CategoryScreenBloc
 
   FutureOr<void> _addItemToFav(
       AddToFavoriteEvent event, Emitter<CategoryScreenState> emit) {
+    log("Before ${event.item.isFavorite}");
     event.item.isFavorite = !event.item.isFavorite;
-    emit(ConvertItemToFavoriteState(isFavorte: event.item.isFavorite));
+    log("After ${event.item.isFavorite}");
+
+    emit(ConvertItemToFavoriteState());
   }
 
   List<ItemModel> items = [];
 
   FutureOr<void> _loadedItems(LoadedCategoryScreenDataSuccessfullyEvent event,
-      Emitter<CategoryScreenState> emit) {
+      Emitter<CategoryScreenState> emit) async {
+    emit(LoadingState());
+    await Future.delayed(const Duration(seconds: 2));
     try {
       for (var item in DemoData.items) {
         if (item.categoryId == event.id) {

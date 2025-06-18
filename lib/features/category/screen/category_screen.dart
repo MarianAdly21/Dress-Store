@@ -1,4 +1,3 @@
-import 'package:dress_store/demo_data.dart';
 import 'package:dress_store/features/Home/models/category_model.dart';
 import 'package:dress_store/features/Home/widgets/products_sliver_grid_list_widget.dart';
 import 'package:dress_store/features/category/bloc/bloc/category_screen_bloc.dart';
@@ -13,7 +12,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CategoryScreen extends StatelessWidget {
   const CategoryScreen({super.key, required this.categoryModel});
-  //final int categoryId;
   final CategoryModel categoryModel;
   @override
   Widget build(BuildContext context) {
@@ -35,13 +33,12 @@ class CategoryScreenWithBloc extends StatefulWidget {
 class _CategoryScreenState extends State<CategoryScreenWithBloc> {
   @override
   void initState() {
-    currentBloc.add(LoadedCategoryScreenDataSuccessfullyEvent(
-        id: widget.categoryModel.categoryId));
+    _loadedData();
     super.initState();
   }
 
   List<ItemModel> itemModels = [];
-  bool isFav = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,9 +67,7 @@ class _CategoryScreenState extends State<CategoryScreenWithBloc> {
               if (state is LoadedCategoryScreenDataSuccessfullyState) {
                 itemModels = state.items;
               }
-              if (state is ConvertItemToFavoriteState) {
-                isFav = state.isFavorte;
-              }
+
               if (state is OpenProductScreenState) {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
@@ -90,87 +85,30 @@ class _CategoryScreenState extends State<CategoryScreenWithBloc> {
                   child: CustomScrollView(
                     slivers: [
                       SliverToBoxAdapter(
-                        child: Column(
-                          children: [
-                            const Text(
-                              "Best Selling Dress",
-                              style: TextStyle(
-                                fontSize: 32,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            AspectRatio(
-                              aspectRatio: 340 / 480,
-                              child: Container(
-                                // height: 480,
-                                // width: 340,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  image: const DecorationImage(
-                                    image:
-                                        AssetImage("assets/images/itme8.webp"),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(16),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      const Expanded(
-                                        child: Text(
-                                          "marianaAdly",
-                                          style: TextStyle(
-                                              fontSize: 26,
-                                              overflow: TextOverflow.ellipsis),
-                                        ),
-                                      ),
-                                      IconFavoriteButtonCustom(
-                                          itemModel: ItemModel(
-                                              id: 1,
-                                              image: "",
-                                              colors: [],
-                                              description: "",
-                                              sizes: [],
-                                              name: "",
-                                              price: 99,
-                                              categoryId: 3),
-                                          onFavPressed: () {})
-                                    ],
-                                  ),
-                                  const Text(
-                                    "888 EGP",
-                                    style: TextStyle(fontSize: 16),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
+                        child: _bestSelligDress(),
                       ),
                       ProductsSliverGridListWidget(
                         items: itemModels,
-                        isFavorite: isFav,
                         onFavPressed: (int indexOfItem, ItemModel itemModel) {
-                          currentBloc.add(AddToFavoriteEvent(
-                              index: indexOfItem, item: itemModel));
+                          _addToFavEvent(indexOfItem, itemModel);
                         },
                         onTap: (int itemId) {
-                          currentBloc
-                              .add(OPenProductScreenEvent(itemId: itemId));
+                          _openProductScreenEvent(itemId);
                         },
                       )
                     ],
                   ),
                 );
+              } else if (state is LoadingState) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state is ErrorState) {
+                return Center(
+                  child: Text(state.errorMessage),
+                );
               } else {
-                return SizedBox();
+                return const SizedBox();
               }
             }),
           )
@@ -179,5 +117,77 @@ class _CategoryScreenState extends State<CategoryScreenWithBloc> {
     );
   }
 
+///////////////////////////////////////////////////////////
+//////////////////// Helper methods ///////////////////////
+///////////////////////////////////////////////////////////
+  void _addToFavEvent(int indexOfItem, ItemModel itemModel) {
+    currentBloc.add(AddToFavoriteEvent(index: indexOfItem, item: itemModel));
+  }
+
+  void _openProductScreenEvent(int itemId) {
+    currentBloc.add(OPenProductScreenEvent(itemId: itemId));
+  }
+
+  void _loadedData() {
+    currentBloc.add(LoadedCategoryScreenDataSuccessfullyEvent(
+        id: widget.categoryModel.categoryId));
+  }
+
   CategoryScreenBloc get currentBloc => context.read<CategoryScreenBloc>();
+
+///////////////////////////////////////////////////////////
+//////////////////// Widget methods ///////////////////////
+///////////////////////////////////////////////////////////
+
+  Widget _bestSelligDress() {
+    return Column(
+      children: [
+        const Text(
+          "Best Selling Dress",
+          style: TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        AspectRatio(
+          aspectRatio: 340 / 480,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              image: DecorationImage(
+                image: AssetImage(itemModels[0].image),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Text(
+                      itemModels[0].name,
+                      style: const TextStyle(
+                          fontSize: 26, overflow: TextOverflow.ellipsis),
+                    ),
+                  ),
+                  IconFavoriteButtonCustom(
+                      itemModel: itemModels[0], onFavPressed: () {})
+                ],
+              ),
+              Text(
+                " ${itemModels[0].price} EGP",
+                style: const TextStyle(fontSize: 16),
+              )
+            ],
+          ),
+        )
+      ],
+    );
+  }
 }

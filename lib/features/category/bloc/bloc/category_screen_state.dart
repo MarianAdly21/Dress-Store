@@ -27,8 +27,4 @@ class OpenProductScreenState extends CategoryScreenState {
 
 class OpenProfileScreenState extends CategoryScreenState {}
 
-class ConvertItemToFavoriteState extends CategoryScreenState {
-  final bool isFavorte;
-
-  ConvertItemToFavoriteState({required this.isFavorte});
-}
+class ConvertItemToFavoriteState extends CategoryScreenState {}

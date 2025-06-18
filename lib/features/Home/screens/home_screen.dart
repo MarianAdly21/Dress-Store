@@ -240,7 +240,7 @@ class _HomeScreenState extends State<HomeScreenWithBloc> {
                   onFavPressed: (indexOfItem, itemModel) {
                     _addToFavoriteEvent(indexOfItem, itemModel);
                   },
-                  isFavorite: isFavorite,
+                 // isFavorite: isFavorite,
                   items: items),
             ],
           ));
