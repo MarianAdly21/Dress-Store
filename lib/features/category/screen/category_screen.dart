@@ -1,5 +1,8 @@
+import 'package:dress_store/demo_data.dart';
+import 'package:dress_store/features/Home/models/category_model.dart';
 import 'package:dress_store/features/Home/widgets/products_sliver_grid_list_widget.dart';
 import 'package:dress_store/features/category/bloc/bloc/category_screen_bloc.dart';
+import 'package:dress_store/features/product/screen/product_screen.dart';
 import 'package:dress_store/models/item_model.dart';
 import 'package:dress_store/widgets/back_button_custom_widget.dart';
 import 'package:dress_store/widgets/background_custom_widget.dart';
@@ -9,20 +12,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CategoryScreen extends StatelessWidget {
-  const CategoryScreen({super.key, required this.categoryId});
-  final int categoryId;
+  const CategoryScreen({super.key, required this.categoryModel});
+  //final int categoryId;
+  final CategoryModel categoryModel;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => CategoryScreenBloc(),
-      child: CategoryScreenWithBloc(categoryId: categoryId),
+      child: CategoryScreenWithBloc(categoryModel: categoryModel),
     );
   }
 }
 
 class CategoryScreenWithBloc extends StatefulWidget {
-  const CategoryScreenWithBloc({super.key, required this.categoryId});
-  final int categoryId;
+  const CategoryScreenWithBloc({super.key, required this.categoryModel});
+  final CategoryModel categoryModel;
 
   @override
   State<CategoryScreenWithBloc> createState() => _CategoryScreenState();
@@ -31,13 +35,13 @@ class CategoryScreenWithBloc extends StatefulWidget {
 class _CategoryScreenState extends State<CategoryScreenWithBloc> {
   @override
   void initState() {
-    currentBloc
-        .add(LoadedCategoryScreenDataSuccessfullyEvent(id: widget.categoryId));
+    currentBloc.add(LoadedCategoryScreenDataSuccessfullyEvent(
+        id: widget.categoryModel.categoryId));
     super.initState();
   }
 
-  CategoryScreenBloc get currentBloc => context.read<CategoryScreenBloc>();
   List<ItemModel> itemModels = [];
+  bool isFav = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,16 +50,12 @@ class _CategoryScreenState extends State<CategoryScreenWithBloc> {
         leadingWidth: 100,
         leading: const BackButtonCustomWidget(),
         centerTitle: true,
-        title: BlocBuilder<CategoryScreenBloc, CategoryScreenState>(
-          builder: (context, state) {
-            return const Text(
-              "Maxi Dress",
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-              ),
-            );
-          },
+        title: Text(
+          widget.categoryModel.categoryName,
+          style: const TextStyle(
+            fontSize: 26,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         actions: const [
           ProfileCustomWidget(),
@@ -70,10 +70,21 @@ class _CategoryScreenState extends State<CategoryScreenWithBloc> {
               if (state is LoadedCategoryScreenDataSuccessfullyState) {
                 itemModels = state.items;
               }
+              if (state is ConvertItemToFavoriteState) {
+                isFav = state.isFavorte;
+              }
+              if (state is OpenProductScreenState) {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return ProductScreen(itemId: state.itemId);
+                }));
+              }
             },
             child: BlocBuilder<CategoryScreenBloc, CategoryScreenState>(
                 builder: (context, state) {
-              if (state is LoadedCategoryScreenDataSuccessfullyState) {
+              if (state is LoadedCategoryScreenDataSuccessfullyState ||
+                  state is ConvertItemToFavoriteState ||
+                  state is OpenProductScreenState) {
                 return Padding(
                   padding: const EdgeInsets.all(18),
                   child: CustomScrollView(
@@ -145,9 +156,15 @@ class _CategoryScreenState extends State<CategoryScreenWithBloc> {
                       ),
                       ProductsSliverGridListWidget(
                         items: itemModels,
-                        isFavorite: false,
-                        onFavPressed: (int indexOfItem, ItemModel itemModel) {},
-                        onTap: (int itemId) {},
+                        isFavorite: isFav,
+                        onFavPressed: (int indexOfItem, ItemModel itemModel) {
+                          currentBloc.add(AddToFavoriteEvent(
+                              index: indexOfItem, item: itemModel));
+                        },
+                        onTap: (int itemId) {
+                          currentBloc
+                              .add(OPenProductScreenEvent(itemId: itemId));
+                        },
                       )
                     ],
                   ),
@@ -161,4 +178,6 @@ class _CategoryScreenState extends State<CategoryScreenWithBloc> {
       ),
     );
   }
+
+  CategoryScreenBloc get currentBloc => context.read<CategoryScreenBloc>();
 }

@@ -1,26 +1,22 @@
+import 'package:dress_store/demo_data.dart';
 import 'package:dress_store/features/Home/models/category_model.dart';
 import 'package:flutter/material.dart';
 
 class CategoryList extends StatelessWidget {
   const CategoryList({super.key, required this.onCatecoryTap});
-  final List<CategoryModel> categories = const [
-    CategoryModel(categoryName: "All", categoryId: 1),
-    CategoryModel(categoryName: "Mini Dresses", categoryId: 2),
-    CategoryModel(categoryName: "Midi Dresses", categoryId: 3),
-    CategoryModel(categoryName: "Maxi Dresses", categoryId: 4),
-  ];
-  final void Function(int categoryId) onCatecoryTap;
+  
+  final void Function(CategoryModel categoryModel) onCatecoryTap;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 40,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: categories.length,
+          itemCount:DemoData.categories.length,
           itemBuilder: (context, index) {
             return _CategoryCustomWidget(
-              onCatecoryTap: () => onCatecoryTap(categories[index].categoryId),
-              categoryModel: categories[index],
+              onCatecoryTap: () => onCatecoryTap(DemoData.categories[index]),
+              categoryModel: DemoData.categories[index],
             );
           }),
     );

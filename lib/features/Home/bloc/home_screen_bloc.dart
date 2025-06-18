@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:dress_store/demo_data.dart';
+import 'package:dress_store/features/Home/models/category_model.dart';
 import 'package:dress_store/models/add_to_cart_send_model.dart';
 import 'package:dress_store/models/item_model.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +22,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
 
   FutureOr<void> _openCategoryScreen(
       OpenCategoryScreenEvent event, Emitter<HomeScreenState> emit) {
-    log(event.catecoryId.toString());
-    emit(OpenCategoryScreenState(categoryId: event.catecoryId));
+    emit(OpenCategoryScreenState(categoryModel: event.catecoryModel));
   }
 
   FutureOr<void> _openCartScreen(

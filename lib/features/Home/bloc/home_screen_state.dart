@@ -12,9 +12,10 @@ class LoadedHomeScreenDataSuccessfullyState extends HomeScreenState {
 }
 
 class OpenCategoryScreenState extends HomeScreenState {
-  final int categoryId;
+  final CategoryModel categoryModel;
 
-  OpenCategoryScreenState({required this.categoryId});
+  OpenCategoryScreenState({required this.categoryModel});
+
 }
 
 class LoadingState extends HomeScreenState {}

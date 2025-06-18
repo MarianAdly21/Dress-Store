@@ -6,9 +6,10 @@ sealed class HomeScreenEvent {}
 class OpenHomeScreenEvent extends HomeScreenEvent {}
 
 class OpenCategoryScreenEvent extends HomeScreenEvent {
-  final int catecoryId;
+  final CategoryModel catecoryModel;
 
-  OpenCategoryScreenEvent({required this.catecoryId});
+  OpenCategoryScreenEvent({required this.catecoryModel});
+
 }
 
 class OPenProductScreenEvent extends HomeScreenEvent {

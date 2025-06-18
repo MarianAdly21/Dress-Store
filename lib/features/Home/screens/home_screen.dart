@@ -47,11 +47,11 @@ class _HomeScreenState extends State<HomeScreenWithBloc> {
           isFavorite = state.isFavorte;
         }
         if (state is OpenCategoryScreenState) {
-          if (state.categoryId == 1) {
+          if (state.categoryModel.categoryId == 1) {
           } else {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
               return CategoryScreen(
-                categoryId: state.categoryId,
+                categoryModel: state.categoryModel,
               );
             }));
           }
@@ -222,9 +222,9 @@ class _HomeScreenState extends State<HomeScreenWithBloc> {
               ),
               SliverToBoxAdapter(
                 child: CategoryList(
-                  onCatecoryTap: (categoryId) {
-                    currentBloc
-                        .add(OpenCategoryScreenEvent(catecoryId: categoryId));
+                  onCatecoryTap: (categoryModel) {
+                    currentBloc.add(
+                        OpenCategoryScreenEvent(catecoryModel: categoryModel));
                   },
                 ),
               ),
