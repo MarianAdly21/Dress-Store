@@ -1,4 +1,5 @@
 import 'package:dress_store/features/Home/bloc/home_screen_bloc.dart';
+import 'package:dress_store/features/Home/models/category_model.dart';
 import 'package:dress_store/features/cart/screen/cart_screen.dart';
 import 'package:dress_store/features/category/screen/category_screen.dart';
 import 'package:dress_store/models/item_model.dart';
@@ -99,7 +100,7 @@ class _HomeScreenState extends State<HomeScreenWithBloc> {
           label: '',
           icon: IconButton(
               onPressed: () {
-                currentBloc.add(OpenCartScreenEvent());
+                _openCartScreenEvent();
               },
               icon: const Icon(
                 Icons.shopping_cart,
@@ -118,6 +119,7 @@ class _HomeScreenState extends State<HomeScreenWithBloc> {
       ]),
     );
   }
+
 
   Widget _pageContent() {
     return Stack(children: [
@@ -223,8 +225,7 @@ class _HomeScreenState extends State<HomeScreenWithBloc> {
               SliverToBoxAdapter(
                 child: CategoryList(
                   onCatecoryTap: (categoryModel) {
-                    currentBloc.add(
-                        OpenCategoryScreenEvent(catecoryModel: categoryModel));
+                    _openCategoryScreenEvent(categoryModel);
                   },
                 ),
               ),
@@ -239,8 +240,7 @@ class _HomeScreenState extends State<HomeScreenWithBloc> {
                   },
                   onFavPressed: (indexOfItem, itemModel) {
                     _addToFavoriteEvent(indexOfItem, itemModel);
-                  },
-                 // isFavorite: isFavorite,
+                  }, 
                   items: items),
             ],
           ));
@@ -250,6 +250,8 @@ class _HomeScreenState extends State<HomeScreenWithBloc> {
       },
     );
   }
+
+ 
 
 ///////////////////////////////////////////////////////////
 //////////////////// Helper methods ///////////////////////
@@ -263,6 +265,13 @@ class _HomeScreenState extends State<HomeScreenWithBloc> {
     currentBloc.add(AddToFavoriteEvent(index: indexOfItem, item: itemModel));
   }
 
+  void _openCartScreenEvent() {
+    currentBloc.add(OpenCartScreenEvent());
+  }
+  void _openCategoryScreenEvent(CategoryModel categoryModel) {
+    currentBloc.add(OpenCategoryScreenEvent(catecoryModel: categoryModel));
+  }
+  
   void _oPenProductScreenEvent(int itemId) {
     currentBloc.add(OPenProductScreenEvent(itemId: itemId));
   }

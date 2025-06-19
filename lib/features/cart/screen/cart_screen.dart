@@ -30,19 +30,17 @@ class CartScreenWithBloc extends StatefulWidget {
 }
 
 late List<AddToCartSendModel> items;
-double totalPrice = 0;
 
 class _CartScreenState extends State<CartScreenWithBloc> {
   @override
   void initState() {
-    currenBloc.add(LoadedItemsToCartEvent());
+    _loadedItemsToCartEvent();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
       appBar: AppBar(
         leadingWidth: 100,
         centerTitle: true,
@@ -80,7 +78,7 @@ class _CartScreenState extends State<CartScreenWithBloc> {
                         Expanded(
                           child: ListView.builder(
                               padding: const EdgeInsets.only(
-                                top: 100,
+                                top: 16,
                                 left: 16,
                                 right: 16,
                                 bottom: 16,
@@ -133,7 +131,7 @@ class _CartScreenState extends State<CartScreenWithBloc> {
                       fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 Text(
-                  " ${totalPrice = DemoData.cartItems.fold(0.0, (sum, element) => sum + (element.item.price * element.quantity))} EGP",
+                  " ${DemoData.cartItems.fold(0.0, (sum, element) => sum + (element.item.price * element.quantity)).round()} EGP",
                   style: const TextStyle(
                       fontWeight: FontWeight.w800, fontSize: 20),
                 )
@@ -147,7 +145,7 @@ class _CartScreenState extends State<CartScreenWithBloc> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 Text(
-                  "1000 EGP",
+                  "10%",
                   style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
                 )
               ],
@@ -167,9 +165,7 @@ class _CartScreenState extends State<CartScreenWithBloc> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 Text(
-                  totalPrice == 0.0
-                      ? "$totalPrice EGP"
-                      : " ${totalPrice - 1000} EGP",
+                  " ${DemoData.cartItems.fold(0.0, (sum, element) => sum + (element.getDiscountedPrice(10 / 100))).round()} EGP",
                   style: const TextStyle(
                       fontWeight: FontWeight.w800, fontSize: 20),
                 )
@@ -222,8 +218,7 @@ class _CartScreenState extends State<CartScreenWithBloc> {
                       ),
                       IconButton(
                           onPressed: () {
-                            currenBloc.add(
-                                DeleteItemEvent(itemId: items[index].item.id,itemIndex: index));
+                            _deleteItemEvent(index);
                           },
                           icon: const Icon(
                             Icons.delete_outline,
@@ -266,22 +261,24 @@ class _CartScreenState extends State<CartScreenWithBloc> {
                         color: const Color(0xffFF737A)),
                     child: Row(
                       children: [
-                        IconButton(
-                          onPressed: () {
-                            currenBloc.add(
-                                IncreaseItemEvent(item: items[index].item));
-                          },
-                          icon: const Icon(Icons.add),
+                        Expanded(
+                          child: IconButton(
+                            onPressed: () {
+                              _increaseItemEvent(index);
+                            },
+                            icon: const Icon(Icons.add),
+                          ),
                         ),
                         Text(items[index].quantity.toString()),
-                        IconButton(
-                            onPressed: () {
-                              currenBloc.add(
-                                  DecreaseItemEvent(item: items[index].item));
-                            },
-                            icon: const Icon(
-                              Icons.remove,
-                            ))
+                        Expanded(
+                          child: IconButton(
+                              onPressed: () {
+                                _decreaseItemEvent(index);
+                              },
+                              icon: const Icon(
+                                Icons.remove,
+                              )),
+                        )
                       ],
                     ),
                   ),
@@ -292,6 +289,26 @@ class _CartScreenState extends State<CartScreenWithBloc> {
         ],
       ),
     );
+  }
+
+///////////////////////////////////////////////////////////
+//////////////////// Helper methods ///////////////////////
+///////////////////////////////////////////////////////////
+  void _decreaseItemEvent(int index) {
+    currenBloc.add(DecreaseItemEvent(item: items[index].item));
+  }
+
+  void _increaseItemEvent(int index) {
+    currenBloc.add(IncreaseItemEvent(item: items[index].item));
+  }
+
+  void _deleteItemEvent(int index) {
+    currenBloc
+        .add(DeleteItemEvent(itemId: items[index].item.id, itemIndex: index));
+  }
+
+  void _loadedItemsToCartEvent() {
+    currenBloc.add(LoadedItemsToCartEvent());
   }
 
   CartScreenBloc get currenBloc => BlocProvider.of<CartScreenBloc>(context);

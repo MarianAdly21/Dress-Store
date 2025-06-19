@@ -12,4 +12,9 @@ class AddToCartSendModel {
     required this.sizeId,
     required this.colorId,
   });
+
+  double getDiscountedPrice(double discount) {
+    return (item.price * quantity) -
+        ((item.price * quantity) * (discount * quantity));
+  }
 }

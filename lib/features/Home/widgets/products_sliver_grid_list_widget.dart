@@ -6,12 +6,10 @@ class ProductsSliverGridListWidget extends StatelessWidget {
   const ProductsSliverGridListWidget({
     super.key,
     required this.items,
-   // required this.isFavorite,
     required this.onFavPressed,
     required this.onTap,
   });
   final List<ItemModel> items;
- // final bool isFavorite;
   final void Function(int itemId) onTap;
   final void Function(int indexOfItem, ItemModel itemModel) onFavPressed;
   @override
@@ -27,7 +25,6 @@ class ProductsSliverGridListWidget extends StatelessWidget {
         itemBuilder: (context, index) {
           return _ItemCutomWidget(
             itemModel: items[index],
-          //  isFavorite: isFavorite,
             onTap: () => onTap(items[index].id),
             onFavPressed: () => onFavPressed(index, items[index]),
           );
@@ -39,12 +36,10 @@ class _ItemCutomWidget extends StatelessWidget {
   const _ItemCutomWidget({
     super.key,
     required this.itemModel,
-   // required this.isFavorite,
     required this.onFavPressed,
     required this.onTap,
   });
   final ItemModel itemModel;
- // final bool isFavorite;
   final void Function() onFavPressed;
   final void Function() onTap;
 
