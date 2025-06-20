@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 
 class ButtonCustomWidget extends StatelessWidget {
   const ButtonCustomWidget({
-    super.key, required this.onTap, required this.text,
+    super.key,
+    this.backgroundColor,
+    required this.onTap,
+    required this.text,
   });
   final void Function() onTap;
   final String text;
+  final Color? backgroundColor;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -16,12 +20,12 @@ class ButtonCustomWidget extends StatelessWidget {
           height: 50,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: Colors.white,
+            color: backgroundColor ?? Colors.white,
           ),
           child: Center(
             child: Text(
-            text ,
-              style:const TextStyle(
+              text,
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: Color(0xffFF9A9F),
