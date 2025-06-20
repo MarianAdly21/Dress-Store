@@ -1,3 +1,4 @@
+import 'package:dress_store/features/log_in/screen/log_in_screen.dart';
 import 'package:dress_store/features/sign_up/screen/sign_up_screen.dart';
 import 'package:dress_store/features/welcome/screen/welcome_screen.dart';
 import 'package:dress_store/splash_screen.dart';
@@ -14,7 +15,7 @@ class DressStore extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SignUpScreen(),
+      home: LogInScreen(),
     );
   }
 }

@@ -73,7 +73,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
                                   icon: const Icon(Icons.g_mobiledata_sharp),
                                   iconSize: 26,
                                 ),
@@ -92,7 +94,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           const Text(
-                            'Don\'t have an account?',
+                            'Already have an account?',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 18,
@@ -101,7 +103,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           GestureDetector(
                             onTap: () {},
                             child: const Text(
-                              ' Sign Up',
+                              'Log in',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,
