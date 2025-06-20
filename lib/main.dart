@@ -1,3 +1,4 @@
+import 'package:dress_store/features/sign_up/screen/sign_up_screen.dart';
 import 'package:dress_store/features/welcome/screen/welcome_screen.dart';
 import 'package:dress_store/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ class DressStore extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: WelcomeScreen(),
+      home: SignUpScreen(),
     );
   }
 }

@@ -1,10 +1,124 @@
+import 'package:dress_store/features/sign_up/widget/custom_text_field.dart';
+import 'package:dress_store/widgets/button_custom_widget.dart';
 import 'package:flutter/material.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
   @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  GlobalKey<FormState> formKey = GlobalKey();
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Stack(
+      children: [
+        Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/splash.jpg'),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        Container(
+          height: MediaQuery.of(context).size.height,
+          margin: const EdgeInsets.only(right: 50),
+          decoration: BoxDecoration(
+            color: const Color(0xffF8A3A7).withOpacity(0.8),
+          ),
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            body: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: SingleChildScrollView(
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(top: 60),
+                        child: Text(
+                          "Sign Up",
+                          style: TextStyle(
+                            fontSize: 40,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const CustomTextFormField(labelText: "Full Name"),
+                      const CustomTextFormField(labelText: "Email"),
+                      const CustomTextFormField(
+                          isHidden: true, labelText: "Password"),
+                      const CustomTextFormField(
+                          isHidden: true, labelText: "Reenter your Password"),
+                      const SizedBox(height: 36),
+                      ButtonCustomWidget(onTap: () {}, text: "Sign Up"),
+                      const SizedBox(height: 36),
+                      Center(
+                        child: Column(
+                          children: [
+                            const Text(
+                              "Or Sign Up with:",
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(Icons.g_mobiledata_sharp),
+                                  iconSize: 26,
+                                ),
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(Icons.apple),
+                                  iconSize: 26,
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 90),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Don\'t have an account?',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {},
+                            child: const Text(
+                              ' Sign Up',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
