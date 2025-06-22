@@ -1,10 +1,14 @@
 import 'package:dress_store/features/log_in/screen/log_in_screen.dart';
-import 'package:dress_store/features/sign_up/screen/sign_up_screen.dart';
-import 'package:dress_store/features/welcome/screen/welcome_screen.dart';
-import 'package:dress_store/splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+import 'firebase_options.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const DressStore());
 }
 

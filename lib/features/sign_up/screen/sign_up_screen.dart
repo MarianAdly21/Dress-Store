@@ -11,6 +11,7 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   GlobalKey<FormState> formKey = GlobalKey();
+  
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -73,9 +74,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 IconButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
+                                  onPressed: () {},
                                   icon: const Icon(Icons.g_mobiledata_sharp),
                                   iconSize: 26,
                                 ),
@@ -101,7 +100,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
                             child: const Text(
                               'Log in',
                               style: TextStyle(

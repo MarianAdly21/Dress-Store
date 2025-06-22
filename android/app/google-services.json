@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "290932343834",
+    "project_id": "dress-store-app",
+    "storage_bucket": "dress-store-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:290932343834:android:73e1b2b371e0dc1eb87da3",
+        "android_client_info": {
+          "package_name": "com.example.dress_store"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEwB9VHgMq6SrYbwVbkK0tzi1rm8IPQxE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
