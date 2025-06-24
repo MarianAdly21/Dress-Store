@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:dress_store/features/helper/show_snak_bar.dart';
 import 'package:dress_store/features/sign_up/widget/custom_text_field.dart';
 import 'package:dress_store/widgets/button_custom_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -58,7 +59,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ),
                       CustomTextFormField(
-                          validato: (value) {
+                          validator: (value) {
                             if (value!.isEmpty) {
                               return 'Please enter your name';
                             }
@@ -75,7 +76,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           },
                           labelText: "Full Name"),
                       CustomTextFormField(
-                          validato: (value) {
+                          validator: (value) {
                             if (value!.isEmpty) {
                               return 'Please enter your email';
                             }
@@ -90,7 +91,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           },
                           labelText: "Email"),
                       CustomTextFormField(
-                          validato: (value) {
+                          validator: (value) {
                             if (value!.isEmpty) {
                               return 'Please enter your email';
                             }
@@ -104,7 +105,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           isHidden: true,
                           labelText: "Password"),
                       CustomTextFormField(
-                          validato: (value) {
+                          validator: (value) {
                             if (value != password) {
                               return 'Please enter your Password Correctlly';
                             }
@@ -200,12 +201,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
         ),
       ],
-    );
-  }
-
-  void showSnakBar(BuildContext context, {required String message}) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
     );
   }
 }

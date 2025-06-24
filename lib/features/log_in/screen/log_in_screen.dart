@@ -1,6 +1,8 @@
+import 'package:dress_store/features/helper/show_snak_bar.dart';
 import 'package:dress_store/features/sign_up/screen/sign_up_screen.dart';
 import 'package:dress_store/features/sign_up/widget/custom_text_field.dart';
 import 'package:dress_store/widgets/button_custom_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LogInScreen extends StatefulWidget {
@@ -12,6 +14,8 @@ class LogInScreen extends StatefulWidget {
 
 class _LogInScreenState extends State<LogInScreen> {
   GlobalKey<FormState> formKey = GlobalKey();
+  String? email;
+  String? password;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -52,11 +56,63 @@ class _LogInScreenState extends State<LogInScreen> {
                             ),
                           ),
                         ),
-                        const CustomTextFormField(labelText: "User Name/Email"),
-                        const CustomTextFormField(
-                            isHidden: true, labelText: "Password"),
+                        CustomTextFormField(
+                          labelText: "Email",
+                          onChanged: (value) {
+                            email = value;
+                          },
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter your email';
+                            }
+                            final emailRegEx =
+                                RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                            if (!emailRegEx.hasMatch(value)) {
+                              return 'Please enter a valid email';
+                            }
+                          },
+                        ),
+                        CustomTextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter your email';
+                            }
+                            if (value.length < 6) {
+                              return 'Password must be at least 6 characters';
+                            }
+                          },
+                          isHidden: true,
+                          labelText: "Password",
+                          onChanged: (value) {
+                            password = value;
+                          },
+                        ),
                         const SizedBox(height: 100),
-                        ButtonCustomWidget(onTap: () {}, text: "Login"),
+                        ButtonCustomWidget(
+                            onTap: () async {
+                              if (formKey.currentState!.validate()) {
+                                try {
+                                  UserCredential user = await FirebaseAuth
+                                      .instance
+                                      .signInWithEmailAndPassword(
+                                          email: email!, password: password!);
+                                  showSnakBar(context, message: "Success");
+                                } on FirebaseAuthException catch (e) {
+                                  if (e.code == "weak-password") {
+                                    showSnakBar(context,
+                                        message:
+                                            'The password provided is too weak.');
+                                  } else if (e.code == 'email-already-in-use') {
+                                    showSnakBar(context,
+                                        message:
+                                            'The account already exists for that email.');
+                                  }
+                                } catch (e) {
+                                  showSnakBar(context, message: e.toString());
+                                }
+                              } else {}
+                            },
+                            text: "Login"),
                         const SizedBox(height: 50),
                         Center(
                           child: Column(
