@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:dress_store/features/sign_up/widget/custom_text_field.dart';
 import 'package:dress_store/widgets/button_custom_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -11,7 +14,10 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   GlobalKey<FormState> formKey = GlobalKey();
-  
+  String? email;
+  String? password;
+  String? name;
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -51,14 +57,86 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         ),
                       ),
-                      const CustomTextFormField(labelText: "Full Name"),
-                      const CustomTextFormField(labelText: "Email"),
-                      const CustomTextFormField(
-                          isHidden: true, labelText: "Password"),
-                      const CustomTextFormField(
-                          isHidden: true, labelText: "Reenter your Password"),
+                      CustomTextFormField(
+                          validato: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter your name';
+                            }
+                            if (value.trim().length < 2) {
+                              return 'Name must be at least 2 characters';
+                            }
+                            final nameRegex = RegExp(r'^[a-zA-Z\s]+$');
+                            if (!nameRegex.hasMatch(value)) {
+                              return 'Name can only contain letters and spaces';
+                            }
+                          },
+                          onChanged: (value) {
+                            name = value;
+                          },
+                          labelText: "Full Name"),
+                      CustomTextFormField(
+                          validato: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter your email';
+                            }
+                            final emailRegEx =
+                                RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                            if (!emailRegEx.hasMatch(value)) {
+                              return 'Please enter a valid email';
+                            }
+                          },
+                          onChanged: (value) {
+                            email = value;
+                          },
+                          labelText: "Email"),
+                      CustomTextFormField(
+                          validato: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter your email';
+                            }
+                            if (value.length < 6) {
+                              return 'Password must be at least 6 characters';
+                            }
+                          },
+                          onChanged: (value) {
+                            password = value;
+                          },
+                          isHidden: true,
+                          labelText: "Password"),
+                      CustomTextFormField(
+                          validato: (value) {
+                            if (value != password) {
+                              return 'Please enter your Password Correctlly';
+                            }
+                          },
+                          isHidden: true,
+                          labelText: "Reenter your Password"),
                       const SizedBox(height: 36),
-                      ButtonCustomWidget(onTap: () {}, text: "Sign Up"),
+                      ButtonCustomWidget(
+                          onTap: () async {
+                            if (formKey.currentState!.validate()) {
+                              try {
+                                UserCredential user = await FirebaseAuth
+                                    .instance
+                                    .createUserWithEmailAndPassword(
+                                        email: email!, password: password!);
+                                showSnakBar(context, message: "Success");
+                              } on FirebaseAuthException catch (e) {
+                                if (e.code == "weak-password") {
+                                  showSnakBar(context,
+                                      message:
+                                          'The password provided is too weak.');
+                                } else if (e.code == 'email-already-in-use') {
+                                  showSnakBar(context,
+                                      message:
+                                          'The account already exists for that email.');
+                                }
+                              } catch (e) {
+                                showSnakBar(context, message: e.toString());
+                              }
+                            } else {}
+                          },
+                          text: "Sign Up"),
                       const SizedBox(height: 36),
                       Center(
                         child: Column(
@@ -122,6 +200,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
         ),
       ],
+    );
+  }
+
+  void showSnakBar(BuildContext context, {required String message}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
     );
   }
 }
