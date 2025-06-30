@@ -17,6 +17,6 @@ class LoadedState extends LoginScreenState {
 
 class LoginSuccessfllyState extends LoginScreenState {}
 
-class OpenSignUpState extends LoginScreenState {}
+class OpenSignUpScreenState extends LoginScreenState {}
 
 class LoginWithGoogleState extends LoginScreenState {}

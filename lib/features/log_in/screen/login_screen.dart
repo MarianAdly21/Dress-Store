@@ -58,7 +58,7 @@ class _LogInScreenState extends State<LogInScreenWithBloc> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: SingleChildScrollView(
                 child: BlocListener<LoginScreenBloc, LoginScreenState>(
-                  listener: (context, state) { 
+                  listener: (context, state) {
                     log('Current state: $state');
                     if (state is ErrorState) {
                       isLoading = false;
@@ -70,8 +70,14 @@ class _LogInScreenState extends State<LogInScreenWithBloc> {
                     }
                     if (state is LoginSuccessfllyState) {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (BuildContext) {
+                          MaterialPageRoute(builder: (context) {
                         return const HomeScreen();
+                      }));
+                    }
+                    if (state is OpenSignUpScreenState) {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return const SignUpScreen();
                       }));
                     }
                   },
@@ -180,10 +186,8 @@ class _LogInScreenState extends State<LogInScreenWithBloc> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) {
-                                      return const SignUpScreen();
-                                    }));
+                                    currentBloc(context)
+                                        .add(OpenSignUpScreenEvent());
                                   },
                                   child: const Text(
                                     'Sign Up',

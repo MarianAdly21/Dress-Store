@@ -10,6 +10,6 @@ class ButtonLoginEvent extends LoginScreenEvent {
   ButtonLoginEvent({required this.email,required  this.password});
 }
 
-class OpenSignUpEvent extends LoginScreenEvent {}
+class OpenSignUpScreenEvent extends LoginScreenEvent {}
 
 class LoginWithGoogleEvent extends LoginScreenEvent {}

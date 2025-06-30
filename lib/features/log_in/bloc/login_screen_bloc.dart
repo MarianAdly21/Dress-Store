@@ -10,6 +10,13 @@ part 'login_screen_state.dart';
 class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
   LoginScreenBloc() : super(LoginScreenInitial()) {
     on<ButtonLoginEvent>(_loginToAccount);
+    on<OpenSignUpScreenEvent>(_openSignScreen);
+  }
+
+  FutureOr<void> _openSignScreen(
+      OpenSignUpScreenEvent event, Emitter<LoginScreenState> emit) {
+    log("open sign up Screeeeeeeen");
+    emit(OpenSignUpScreenState());
   }
 
   FutureOr<void> _loginToAccount(
@@ -26,8 +33,8 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
       //   emit(ErrorState(errorMessage: "No user found for that email"));
       // } else if (ex.code == 'wrong-password') {
       //   emit(ErrorState(errorMessage: "Wrong password provided for that user"));
-      // } 
-       if (ex.code == 'invalid-credential') {
+      // }
+      if (ex.code == 'invalid-credential') {
         emit(ErrorState(errorMessage: "Invalid email or password."));
       } else {
         log("Unknown FirebaseAuth error: ${ex.code}");
