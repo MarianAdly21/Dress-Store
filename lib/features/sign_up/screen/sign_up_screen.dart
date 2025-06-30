@@ -33,7 +33,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
         Container(
           height: MediaQuery.of(context).size.height,
-          margin: const EdgeInsets.only(right: 50),
+          width: MediaQuery.of(context).size.width - 50,
+          // margin: const EdgeInsets.only(right: 50),
           decoration: BoxDecoration(
             color: const Color(0xffF8A3A7).withOpacity(0.8),
           ),
@@ -98,6 +99,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             if (value.length < 6) {
                               return 'Password must be at least 6 characters';
                             }
+                            return null;
                           },
                           onChanged: (value) {
                             password = value;
@@ -109,6 +111,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             if (value != password) {
                               return 'Please enter your Password Correctlly';
                             }
+                            return null;
                           },
                           isHidden: true,
                           labelText: "Reenter your Password"),

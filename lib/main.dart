@@ -1,4 +1,4 @@
-import 'package:dress_store/features/log_in/screen/log_in_screen.dart';
+import 'package:dress_store/features/log_in/screen/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +19,7 @@ class DressStore extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LogInScreen(),
+      home: LoginScreen(),
     );
   }
 }
