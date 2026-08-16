@@ -25,7 +25,6 @@ class CategoryList extends StatelessWidget {
 
 class _CategoryCustomWidget extends StatelessWidget {
   const _CategoryCustomWidget({
-    super.key,
     required this.categoryModel,
     required this.onCatecoryTap,
   });

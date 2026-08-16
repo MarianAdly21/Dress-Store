@@ -112,7 +112,7 @@ class _CartScreenState extends State<CartScreenWithBloc> {
     return Container(
       height: 280,
       decoration: BoxDecoration(
-          color: const Color(0xffF8A3A7).withOpacity(0.9),
+          color: const Color(0xffF8A3A7).withValues(alpha:  0.9),
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(30),
             topRight: Radius.circular(30),
