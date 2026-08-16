@@ -117,7 +117,7 @@ class _ProductScreenState extends State<ProductScreenWithBloc> {
             width: 330,
             height: 400,
             decoration: BoxDecoration(
-              color: const Color(0xffF8A3A7).withOpacity(0.9),
+              color: const Color(0xffF8A3A7).withValues(alpha: 0.9),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Padding(

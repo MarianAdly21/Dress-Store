@@ -29,11 +29,7 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
           email: event.email, password: event.password);
       emit(LoginSuccessfllyState());
     } on FirebaseAuthException catch (ex) {
-      // if (ex.code == 'user-not-found') {
-      //   emit(ErrorState(errorMessage: "No user found for that email"));
-      // } else if (ex.code == 'wrong-password') {
-      //   emit(ErrorState(errorMessage: "Wrong password provided for that user"));
-      // }
+      
       if (ex.code == 'invalid-credential') {
         emit(ErrorState(errorMessage: "Invalid email or password."));
       } else {

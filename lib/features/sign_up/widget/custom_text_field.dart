@@ -22,14 +22,17 @@ class CustomTextFormField extends StatelessWidget {
         decoration: InputDecoration(
           labelText: labelText,
           labelStyle: const TextStyle(color: Colors.white),
-          focusedBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.white),
-          ),
-          enabledBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.white),
-          ),
+          focusedBorder: _underLineInputBorder(),
+          enabledBorder: _underLineInputBorder(),
+          // errorBorder: _underLineInputBorder(),
         ),
       ),
+    );
+  }
+
+  UnderlineInputBorder _underLineInputBorder() {
+    return const UnderlineInputBorder(
+      borderSide: BorderSide(color: Colors.white),
     );
   }
 }

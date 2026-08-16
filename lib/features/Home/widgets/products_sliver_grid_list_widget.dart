@@ -34,7 +34,6 @@ class ProductsSliverGridListWidget extends StatelessWidget {
 
 class _ItemCutomWidget extends StatelessWidget {
   const _ItemCutomWidget({
-    super.key,
     required this.itemModel,
     required this.onFavPressed,
     required this.onTap,
